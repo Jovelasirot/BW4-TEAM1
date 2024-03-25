@@ -1,5 +1,6 @@
 package entities;
 
+import enums.PassDuration;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,8 +17,10 @@ public class Pass {
     private long IssueId;
 
 
-    public Pass(){}
-    public Pass( PassDuration passDuration, int cardNumber, int issueDate, long issueId) {
+    public Pass() {
+    }
+
+    public Pass(PassDuration passDuration, int cardNumber, int issueDate, long issueId) {
 
         this.passDuration = passDuration;
         CardNumber = cardNumber;

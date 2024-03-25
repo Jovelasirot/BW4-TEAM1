@@ -1,5 +1,6 @@
 package entities;
 
+import enums.Validation;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -7,18 +8,18 @@ import java.util.Date;
 
 @Entity
 public class Ticket {
-@Id
-@Column
-@GeneratedValue
+    @Id
+    @Column
+    @GeneratedValue
     private int ticket_id; // primary key
-@Column
+    @Column
     private Date issueDate;
 
-@ManyToOne
-@JoinColumn(name = "sales_id")
+    @ManyToOne
+    @JoinColumn(name = "sales_id")
     private Sales sales;
-@Column
-@Enumerated(EnumType.STRING)
+    @Column
+    @Enumerated(EnumType.STRING)
     private Validation validation;
 
 //        @ManyToOne
@@ -49,9 +50,6 @@ public class Ticket {
     public void setIssueDate(Date issueDate) {
         this.issueDate = issueDate;
     }
-
-
-
 
 
     public Validation getValidation() {
