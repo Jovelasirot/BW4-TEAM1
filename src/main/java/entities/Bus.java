@@ -10,18 +10,18 @@ import java.util.Random;
 import java.util.function.Supplier;
 
 @Entity
-public class Tram extends Vehicle {
-    @Column(name = "max_capacity_tram")
-    private int maxCapacityTram = 70;
+public class Bus extends Vehicle {
+    @Column(name = "max_capacity_bus")
+    private int maxCapacityBus = 80;
 
-    public Tram() {
+    public Bus() {
     }
 
-    public Tram(ServiceType serviceType, LocalDate startDate, LocalDate endDate, int averageRouteTime, int actualRouteTime, int validatedTicket, Long period) {
+    public Bus(ServiceType serviceType, LocalDate startDate, LocalDate endDate, int averageRouteTime, int actualRouteTime, int validatedTicket, Long period) {
         super(serviceType, startDate, endDate, averageRouteTime, actualRouteTime, validatedTicket, period);
     }
 
-    public static Supplier<Tram> getTramSupplier() {
+    public static Supplier<Bus> getBusSupplier() {
         Random rdm = new Random();
         ServiceType[] serviceTypes = ServiceType.values();
 
@@ -52,22 +52,22 @@ public class Tram extends Vehicle {
 
             int validatedTicket = rdm.nextInt(1000);
 
-            return new Tram(serviceType, startDate, endDate, averageRouteTime, actualRouteTime, validatedTicket, period);
+            return new Bus(serviceType, startDate, endDate, averageRouteTime, actualRouteTime, validatedTicket, period);
         };
     }
 
-    public int getMaxCapacityTram() {
-        return maxCapacityTram;
+    public int getMaxCapacityBus() {
+        return maxCapacityBus;
     }
 
-    public void setMaxCapacityTram(int maxCapacityTram) {
-        this.maxCapacityTram = maxCapacityTram;
+    public void setMaxCapacityBus(int maxCapacityBus) {
+        this.maxCapacityBus = maxCapacityBus;
     }
 
     @Override
     public String toString() {
-        return "Tram{" +
-                "maxCapacityTram=" + maxCapacityTram +
+        return "Bus{" +
+                "maxCapacityBus=" + maxCapacityBus +
                 ", id=" + id +
                 ", serviceType=" + serviceType +
                 ", dutyStartDate=" + dutyStartDate +
@@ -77,8 +77,6 @@ public class Tram extends Vehicle {
                 ", averageRouteTime=" + averageRouteTime +
                 ", actualRouteTime=" + actualRouteTime +
                 ", validatedTicket=" + validatedTicket +
-                ", periodOnDuty=" + periodOnDuty +
-                ", periodOnMaintenance=" + periodOnMaintenance +
                 '}';
     }
 }
