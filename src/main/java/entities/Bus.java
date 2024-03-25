@@ -47,7 +47,7 @@ public class Bus extends Vehicle {
 
             }
 
-            int averageRouteTime = route.getAverageRouteTime();
+            int averageRouteTime = rdm.nextInt(60, 180);
             int actualRouteTime = averageRouteTime + rdm.nextInt(0, 5);
 
             int validatedTicket = rdm.nextInt(1000);
