@@ -8,17 +8,23 @@ import java.util.Random;
 import java.util.function.Supplier;
 
 @Entity
+@Table(name = "routes")
 public class Route {
     @ManyToOne
-    @JoinColumn(name = "vehicle_id", nullable = false, unique = true)
+    @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "route_id")
     private long id;
+
+    @Column(name = "start_route")
     private String starRoute;
+
+    @Column(name = "end_route")
     private String endRoute;
 
+    @Column(name = "average_route_time")
     private int averageRouteTime;
 
     public Route() {
@@ -46,7 +52,9 @@ public class Route {
             String startRoute = faker.harryPotter().character();
             String endRoute = faker.harryPotter().character();
 
-            int averageRouteTime = rdm.nextInt(60, 180);
+            int averageRouteTime = rdm.nextInt(60, 120);
+
+            eM.close();
 
             return new Route(selectedVehicle, startRoute, endRoute, averageRouteTime);
         };
