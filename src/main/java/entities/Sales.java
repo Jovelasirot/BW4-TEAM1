@@ -15,8 +15,8 @@ public class Sales {
     @OneToMany (mappedBy = "sales")
     private List<Ticket> tickets;
 
-//    @OneToMany (mappedBy = "id")
-//   private List<Pass> passes;
+    @OneToMany (mappedBy = "id")
+    private List<Pass> passes;
 
 
     public Sales() { }

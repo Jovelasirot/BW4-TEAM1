@@ -14,8 +14,8 @@ public class Card {
     private LocalDate dateOfIssue;
     @Column(name = "expiry_date")
     private LocalDate expiryDate;
-//    @OneToMany
-//    private Pass pass;
+    @OneToMany
+   private Pass pass;
 
     public Card(){}
 
