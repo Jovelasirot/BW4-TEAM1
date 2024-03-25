@@ -1,22 +1,21 @@
 package DAO;
 
-import entities.Vehicle;
+import entities.Route;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
-public class VehicleDAO {
-
+public class RouteDAO {
     private final EntityManager em;
 
-    public VehicleDAO(EntityManager em) {
+    public RouteDAO(EntityManager em) {
         this.em = em;
     }
 
-    public void save(Vehicle vehicle) {
+    public void save(Route route) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
-        em.persist(vehicle);
+        em.persist(route);
         transaction.commit();
-        System.out.println("The vehicle with id: " + vehicle.getId() + ", has been saved correctly");
+        System.out.println("The route with id: " + route.getId() + ", has been saved correctly");
     }
 }

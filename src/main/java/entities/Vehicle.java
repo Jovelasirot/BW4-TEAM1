@@ -8,44 +8,36 @@ import java.time.LocalDate;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Vehicle {
+    @ManyToOne
+    @JoinColumn(name = "route_id", nullable = false, unique = true)
+    protected static Route route;
     @Id
     @GeneratedValue
     @Column(name = "vehicle_id")
     protected long id;
-
     @Enumerated(EnumType.STRING)
     protected ServiceType serviceType;
-
     @Column(name = "duty_start_date")
     protected LocalDate dutyStartDate;
-
     @Column(name = "maintenance_start_date")
     protected LocalDate maintenanceStartDate;
-
     @Column(name = "duty_end_date")
     protected LocalDate dutyEndDate;
-
     @Column(name = "maintenance_end_date")
     protected LocalDate maintenanceEndDate;
-
-    @Column(name = "average_route_time")
-    protected int averageRouteTime;
     @Column(name = "actual_route_time")
     protected int actualRouteTime;
-
     @Column(name = "validated_ticket")
     protected int validatedTicket;
-
     @Column(name = "period_on_duty")
     protected Long periodOnDuty;
-
     @Column(name = "period_on_maintenance")
     protected Long periodOnMaintenance;
 
     public Vehicle() {
     }
-
-    public Vehicle(ServiceType serviceType, LocalDate startDate, LocalDate endDate, int averageRouteTime, int actualRouteTime, int validatedTicket, Long period) {
+    
+    public Vehicle(ServiceType serviceType, LocalDate startDate, LocalDate endDate, int actualRouteTime, int validatedTicket, Long period) {
 
         this.serviceType = serviceType;
         if (ServiceType.ON_DUTY.equals(serviceType)) {
@@ -58,7 +50,6 @@ public abstract class Vehicle {
             this.periodOnMaintenance = period;
         }
 
-        this.averageRouteTime = averageRouteTime;
         this.actualRouteTime = actualRouteTime;
         this.validatedTicket = validatedTicket;
     }
@@ -115,14 +106,6 @@ public abstract class Vehicle {
         this.maintenanceEndDate = maintenanceEndDate;
     }
 
-    public int getAverageRouteTime() {
-        return averageRouteTime;
-    }
-
-    public void setAverageRouteTime(int averageRouteTime) {
-        this.averageRouteTime = averageRouteTime;
-    }
-
     public int getActualRouteTime() {
         return actualRouteTime;
     }
@@ -155,6 +138,14 @@ public abstract class Vehicle {
         this.periodOnMaintenance = periodOnMaintenance;
     }
 
+    public Route getRoute() {
+        return route;
+    }
+
+    public void setRoute(Route route) {
+        this.route = route;
+    }
+
     @Override
     public String toString() {
         return "Vehicle{" +
@@ -164,11 +155,11 @@ public abstract class Vehicle {
                 ", maintenanceStartDate=" + maintenanceStartDate +
                 ", dutyEndDate=" + dutyEndDate +
                 ", maintenanceEndDate=" + maintenanceEndDate +
-                ", averageRouteTime=" + averageRouteTime +
                 ", actualRouteTime=" + actualRouteTime +
                 ", validatedTicket=" + validatedTicket +
                 ", periodOnDuty=" + periodOnDuty +
                 ", periodOnMaintenance=" + periodOnMaintenance +
+                ", route=" + route +
                 '}';
     }
 }
