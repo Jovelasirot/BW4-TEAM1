@@ -1,21 +1,21 @@
 package entities;
 
-import enums.status;
+import enums.Status;
 import jakarta.persistence.*;
 
 @Entity
-//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+
 public class VendingMachine extends Sales{
 
 
     @Enumerated(EnumType.STRING)
-    private status status;
+    private Status status;
 
 
 
     public VendingMachine() {}
-    public VendingMachine(int id, status status) {
-        super(id);
+    public VendingMachine( Status status) {
+//        super(id);
     this.status =status;
     }
 
