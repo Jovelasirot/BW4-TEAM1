@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Pass {
     @Id
     @GeneratedValue
-    private long id;
+    private long Pass_id;
     @Enumerated(EnumType.STRING)
     private PassDuration passDuration;
     private int CardNumber;
@@ -16,6 +16,7 @@ public class Pass {
     private long IssueId;
 
 
+    public Pass(){}
     public Pass( PassDuration passDuration, int cardNumber, int issueDate, long issueId) {
 
         this.passDuration = passDuration;
@@ -25,11 +26,11 @@ public class Pass {
     }
 
     public long getId() {
-        return id;
+        return Pass_id;
     }
 
     public void setId(long id) {
-        this.id = id;
+        this.Pass_id = id;
     }
 
     public PassDuration getPassDuration() {
@@ -68,7 +69,7 @@ public class Pass {
     @Override
     public String toString() {
         return "Pass{" +
-                "id=" + id +
+                "id=" + Pass_id +
                 ", passDuration=" + passDuration +
                 ", CardNumber=" + CardNumber +
                 ", IssueDate=" + IssueDate +
