@@ -12,8 +12,8 @@ public class Sales {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int id;
 
-//    @OneToMany (mappedBy = "id")
-//    private List<Ticket> tickets;
+    @OneToMany (mappedBy = "sales")
+    private List<Ticket> tickets;
 
 //    @OneToMany (mappedBy = "id")
 //   private List<Pass> passes;

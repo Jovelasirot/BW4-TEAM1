@@ -4,12 +4,10 @@ import enums.status;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "vending_machine")
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class VendingMachine extends Sales{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int vendingMachine_id;
+
     @Enumerated(EnumType.STRING)
     private status status;
 

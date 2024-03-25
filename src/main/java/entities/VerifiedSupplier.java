@@ -3,12 +3,10 @@ package entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "verified_supplier")
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class VerifiedSupplier extends Sales{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int verifiedSupplier_id;
+
     protected String supplierName;
 
 
@@ -22,7 +20,6 @@ public class VerifiedSupplier extends Sales{
     @Override
     public String toString() {
         return "VerifiedSupplier{" +
-                "verifiedSupplier_id=" + verifiedSupplier_id +
                 ", supplierName='" + supplierName + '\'' +
                 ", id=" + id +
                 '}';

@@ -13,25 +13,25 @@ public class Ticket {
     private int ticket_id; // primary key
 @Column
     private Date issueDate;
-@Column
+
 @ManyToOne
-@JoinColumn
-    private int id;
+@JoinColumn(name = "sales_id")
+    private Sales sales;
 @Column
 @Enumerated(EnumType.STRING)
     private Validation validation;
-@Column
-        @ManyToOne
-        @JoinColumn
-long vehicle_id;
+
+//        @ManyToOne
+//        @JoinColumn()
+//        private Vehicle vehicle_id;
 
 
-    public Ticket(int ticket_id, Date issueDate, int id, Validation stato, long vehicle_id) {
+    public Ticket(int ticket_id, Date issueDate, Validation stato, long vehicle_id) {
         this.ticket_id = ticket_id;
         this.issueDate = issueDate;
-        this.id = id;
+
         this.validation = stato;
-        this.vehicle_id = vehicle_id;
+//        this.vehicle_id = vehicle_id;
     }
 
     public int getTicket_id() {
@@ -50,13 +50,9 @@ long vehicle_id;
         this.issueDate = issueDate;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+
+
 
     public Validation getValidation() {
         return validation;
@@ -66,22 +62,22 @@ long vehicle_id;
         this.validation = validation;
     }
 
-    public long getVehicle_id() {
-        return vehicle_id;
-    }
-
-    public void setVehicle_id(long vehicle_id) {
-        this.vehicle_id = vehicle_id;
-    }
+//    public long getVehicle_id() {
+//        return vehicle_id;
+//    }
+//
+//    public void setVehicle_id(long vehicle_id) {
+//        this.vehicle_id = vehicle_id;
+//    }
 
     @Override
     public String toString() {
         return "Ticket{" +
                 "ticket_id=" + ticket_id +
                 ", issueDate=" + issueDate +
-                ", id=" + id +
+
                 ", validation=" + validation +
-                ", vehicle_id=" + vehicle_id +
+//                ", vehicle_id=" + vehicle_id +
                 '}';
     }
 }
