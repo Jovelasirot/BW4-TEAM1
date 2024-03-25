@@ -1,5 +1,6 @@
 package entities;
 
+import enums.PassDuration;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,12 +14,14 @@ public class Pass {
     private int CardNumber;
     private int IssueDate;
     @ManyToOne
-    @JoinColumn( name = "card_number")
+    @JoinColumn(name = "card_number")
     private Card card;
 
 
-    public Pass(){}
-    public Pass( PassDuration passDuration, int cardNumber, int issueDate) {
+    public Pass() {
+    }
+
+    public Pass(PassDuration passDuration, int cardNumber, int issueDate) {
 
         this.passDuration = passDuration;
         CardNumber = cardNumber;
@@ -56,8 +59,6 @@ public class Pass {
     public void setIssueDate(int issueDate) {
         IssueDate = issueDate;
     }
-
-
 
 
     @Override

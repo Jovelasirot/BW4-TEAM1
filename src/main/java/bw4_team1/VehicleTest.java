@@ -3,7 +3,6 @@ package bw4_team1;
 import DAO.RouteDAO;
 import DAO.VehicleDAO;
 import entities.Bus;
-import entities.Route;
 import entities.Tram;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -14,7 +13,6 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import static entities.Bus.getBusSupplier;
-import static entities.Route.getRouteSupplier;
 import static entities.Tram.getTramSupplier;
 
 public class VehicleTest {
@@ -26,6 +24,13 @@ public class VehicleTest {
 
         VehicleDAO vDAO = new VehicleDAO(eM);
         RouteDAO rDAO = new RouteDAO(eM);
+
+//        Supplier<Route> routeSupplier = getRouteSupplier(emf);
+//        List<Route> routeList = new ArrayList<>();
+//        for (int i = 0; i < 60; i++) {
+//            routeList.add(routeSupplier.get());
+//        }
+//        routeList.forEach(rDAO::save);
 
         Supplier<Bus> busSupplier = getBusSupplier();
         List<Bus> busList = new ArrayList<>();
@@ -40,13 +45,6 @@ public class VehicleTest {
             tramList.add(tramSupplier.get());
         }
         tramList.forEach(vDAO::save);
-
-        Supplier<Route> routeSupplier = getRouteSupplier(emf);
-        List<Route> routeList = new ArrayList<>();
-        for (int i = 0; i < 60; i++) {
-            routeList.add(routeSupplier.get());
-        }
-        routeList.forEach(rDAO::save);
 
 
         emf.close();

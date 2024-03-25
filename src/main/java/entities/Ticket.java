@@ -1,5 +1,6 @@
 package entities;
 
+import enums.Validation;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -7,31 +8,29 @@ import java.util.Date;
 
 @Entity
 public class Ticket {
-@Id
-@Column
-@GeneratedValue
+    @Id
+    @Column
+    @GeneratedValue
     private int ticket_id; // primary key
-@Column
+    @Column
     private Date issueDate;
 
-@ManyToOne
-@JoinColumn(name = "sales_id")
+    @ManyToOne
+    @JoinColumn(name = "sales_id")
     private Sales sales;
-@Column
-@Enumerated(EnumType.STRING)
+    @Column
+    @Enumerated(EnumType.STRING)
     private Validation validation;
 
-//        @ManyToOne
-//        @JoinColumn()
-//        private Vehicle vehicle_id;
+@ManyToOne
+@JoinColumn(name = "vehicle_id")
+private Vehicle vehicle;
 
 
     public Ticket(int ticket_id, Date issueDate, Validation stato, long vehicle_id) {
         this.ticket_id = ticket_id;
         this.issueDate = issueDate;
-
         this.validation = stato;
-//        this.vehicle_id = vehicle_id;
     }
 
     public int getTicket_id() {
@@ -51,9 +50,6 @@ public class Ticket {
     }
 
 
-
-
-
     public Validation getValidation() {
         return validation;
     }
@@ -62,13 +58,6 @@ public class Ticket {
         this.validation = validation;
     }
 
-//    public long getVehicle_id() {
-//        return vehicle_id;
-//    }
-//
-//    public void setVehicle_id(long vehicle_id) {
-//        this.vehicle_id = vehicle_id;
-//    }
 
     @Override
     public String toString() {
@@ -77,7 +66,6 @@ public class Ticket {
                 ", issueDate=" + issueDate +
 
                 ", validation=" + validation +
-//                ", vehicle_id=" + vehicle_id +
                 '}';
     }
 }

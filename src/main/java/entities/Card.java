@@ -10,7 +10,7 @@ import java.util.List;
 public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column( name = "card_number")
+    @Column(name = "card_number")
     private long cardNumber;
     @Column(name = "date_of_issue")
     private LocalDate dateOfIssue;
@@ -19,7 +19,8 @@ public class Card {
     @OneToMany(mappedBy = "card", cascade = CascadeType.ALL)
     private List<Pass> passes;
 
-    public Card(){}
+    public Card() {
+    }
 
     public Card(LocalDate dateOfIssue, LocalDate expiryDate) {
         this.dateOfIssue = dateOfIssue;
