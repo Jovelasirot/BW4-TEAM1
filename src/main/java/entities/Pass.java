@@ -8,6 +8,7 @@ public class Pass {
     @Id
     @GeneratedValue
     private long id;
+    @Enumerated(EnumType.STRING)
     private PassDuration passDuration;
     private int CardNumber;
     private int IssueDate;
