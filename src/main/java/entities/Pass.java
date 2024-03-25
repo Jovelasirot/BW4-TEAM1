@@ -13,16 +13,16 @@ public class Pass {
     private int CardNumber;
     private int IssueDate;
     @ManyToOne
-    private long IssueId;
+    @JoinColumn( name = "card_number")
+    private Card card;
 
 
     public Pass(){}
-    public Pass( PassDuration passDuration, int cardNumber, int issueDate, long issueId) {
+    public Pass( PassDuration passDuration, int cardNumber, int issueDate) {
 
         this.passDuration = passDuration;
         CardNumber = cardNumber;
         IssueDate = issueDate;
-        IssueId = issueId;
     }
 
     public long getId() {
@@ -57,13 +57,7 @@ public class Pass {
         IssueDate = issueDate;
     }
 
-    public long getIssueId() {
-        return IssueId;
-    }
 
-    public void setIssueId(long issueId) {
-        IssueId = issueId;
-    }
 
 
     @Override
@@ -73,7 +67,6 @@ public class Pass {
                 ", passDuration=" + passDuration +
                 ", CardNumber=" + CardNumber +
                 ", IssueDate=" + IssueDate +
-                ", IssueId=" + IssueId +
                 '}';
     }
 }
