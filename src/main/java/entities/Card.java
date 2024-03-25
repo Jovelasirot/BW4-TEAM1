@@ -3,6 +3,8 @@ package entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
+
 @Entity
 @Table(name = "cards")
 public class Card {
@@ -14,8 +16,8 @@ public class Card {
     private LocalDate dateOfIssue;
     @Column(name = "expiry_date")
     private LocalDate expiryDate;
-//    @OneToMany
-//    private Pass pass;
+    @OneToMany(mappedBy = "card", cascade = CascadeType.ALL)
+    private List<Pass> passes;
 
     public Card(){}
 
