@@ -67,11 +67,12 @@ public class VehicleTest {
 //        maintenanceRecords.forEach(mrDAO::save);
 //
 //
-        Supplier<Ticket> ticketSupplier = getTicketSupplier(emf);
         List<Ticket> ticketList = new ArrayList<>();
-        for (int i = 0; i < 40; i++) {
-            ticketList.add(ticketSupplier.get());
-        }
+
+        Supplier<List<Ticket>> ticketSupplier = getTicketSupplier(emf);
+        ticketList.addAll(ticketSupplier.get());
+
+
         ticketList.forEach(tDAO::save);
 
 

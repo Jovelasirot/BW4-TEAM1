@@ -1,11 +1,12 @@
 package DAO;
-
 import entities.Ticket;
+import enums.Validation;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 
@@ -38,6 +39,7 @@ public class TicketDAO {
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);
         return query.getResultList();
+
     }
 
     public List<Ticket> findTicketsComplete(int sales_id, LocalDate startDate, LocalDate endDate) {
@@ -47,5 +49,13 @@ public class TicketDAO {
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);
         return query.getResultList();
+    }
+
+    public long countValidatedTicketsByVehicleId(int vehicleId) {
+        TypedQuery<Long> query = em.createQuery(
+                "SELECT COUNT(t) FROM Ticket t WHERE t.sales.vehicle.id = :vehicleId AND t.validation = :validatedStatus", Long.class);
+        query.setParameter("vehicleId", vehicleId);
+        query.setParameter("validatedStatus", Validation.VALIDATED);
+        return query.getSingleResult();
     }
 }

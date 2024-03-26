@@ -4,6 +4,7 @@ import enums.Validation;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Supplier;
@@ -32,13 +33,14 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(LocalDate issueDate, Validation stato, Vehicle vehicle) {
+    public Ticket(LocalDate issueDate, Validation stato, Vehicle vehicle, Sales sales) {
         this.vehicle = vehicle;
         this.issueDate = issueDate;
         this.validation = stato;
+        this.sales = sales;
     }
 
-    public static Supplier<Ticket> getTicketSupplier(EntityManagerFactory emf) {
+    public static Supplier<List<Ticket>> getTicketSupplier(EntityManagerFactory emf) {
         Random rdm = new Random();
         Validation[] validations = Validation.values();
 
@@ -47,19 +49,32 @@ public class Ticket {
 
             TypedQuery<Vehicle> vehicleQuery = eM.createQuery("SELECT v from Vehicle v", Vehicle.class);
             List<Vehicle> vehicleList = vehicleQuery.getResultList();
-            Vehicle selectedVehicle = null;
 
-            int rdmValidation = rdm.nextInt(validations.length);
-            Validation validationSelector = validations[rdmValidation];
-            if (Validation.VALIDATED.equals(validationSelector) && !vehicleList.isEmpty()) {
-                selectedVehicle = vehicleList.get(rdm.nextInt(vehicleList.size()));
-            }
+
+            TypedQuery<Sales> salesQuery = eM.createQuery("SELECT s from Sales s", Sales.class);
+            List<Sales> salesList = salesQuery.getResultList();
 
             LocalDate issueDate = LocalDate.now().plusDays(rdm.nextInt(730));
+            List<Ticket> ticketsList = new ArrayList<>();
+
+            for (Sales sales : salesList) {
+                Vehicle selectedVehicle = null;
+                selectedVehicle = vehicleList.get(rdm.nextInt(vehicleList.size()));
+                int rdmValidation = rdm.nextInt(validations.length);
+                Validation validationSelector = validations[rdmValidation];
+                if (Validation.VALIDATED.equals(validationSelector) && !vehicleList.isEmpty()) {
+                    selectedVehicle = vehicleList.get(rdm.nextInt(vehicleList.size()));
+                } else if (Validation.NOT_VALIDATED.equals(validationSelector)) {
+                    selectedVehicle = null;
+                }
+                Ticket ticket = new Ticket(issueDate, validationSelector, selectedVehicle, sales);
+                ticketsList.add(ticket);
+            }
+
 
             eM.close();
 
-            return new Ticket(issueDate, validationSelector, selectedVehicle);
+            return ticketsList;
         };
     }
 
