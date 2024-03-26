@@ -1,23 +1,21 @@
 package DAO;
-import entities.Ticket;
+
+import entities.Pass;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
-
-public class TicketDAO {
+public class PassDAO {
     private final EntityManager em;
 
-
-    public TicketDAO(EntityManager em) {
+    public PassDAO(EntityManager em) {
         this.em = em;
     }
 
-    public void save(Ticket ticket) {
+    public void save(Pass pass) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
-        em.persist(ticket);
+        em.persist(pass);
         transaction.commit();
-        System.out.println("The ticket with id: " + ticket.getTicket_id() + ", has been saved correctly");
+        System.out.println("The pass with id: " + pass.getPass_id() + ", has been saved correctly");
     }
-
 }
