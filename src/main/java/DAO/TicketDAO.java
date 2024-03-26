@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -38,5 +39,14 @@ public class TicketDAO {
         query.setParameter("endDate", endDate);
         return query.getResultList();
 
+    }
+
+    public List<Ticket> findTicketsComplete(int sales_id, LocalDate startDate, LocalDate endDate) {
+        TypedQuery<Ticket> query = em.createQuery(
+                "SELECT t FROM Ticket t WHERE t.sales.sales_id = :salesId AND t.issueDate BETWEEN :startDate AND :endDate", Ticket.class);
+        query.setParameter("salesId", sales_id);
+        query.setParameter("startDate", startDate);
+        query.setParameter("endDate", endDate);
+        return query.getResultList();
     }
 }

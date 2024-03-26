@@ -12,6 +12,8 @@ import java.util.Random;
 import java.util.function.Supplier;
 
 public class TicketTest implements Supplier<Ticket> {
+
+
     private Random random = new Random();
     private static final Validation[] VALIDATIONS = Validation.values();
 
@@ -34,4 +36,5 @@ public class TicketTest implements Supplier<Ticket> {
 
         return new Ticket(issueDate, validation, vehicle_id);
     }
+
 }

@@ -10,6 +10,7 @@ import java.util.List;
 public class Sales {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "sales_id")
     protected int id;
 
     @OneToMany (mappedBy = "sales")
