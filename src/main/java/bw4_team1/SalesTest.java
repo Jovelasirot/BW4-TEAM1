@@ -32,8 +32,9 @@ public class SalesTest {
         Supplier<Sales> supplier = () -> (new VerifiedSupplier(faker.harryPotter().character()));
         Supplier<Sales> supplier1 = () -> (new VendingMachine(colorList.get(random.nextInt(0, colorList.size()))));
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 15; i++) {
             salesDAO.save(supplier.get());
+            salesDAO.save(supplier1.get());
         }
 
     }
