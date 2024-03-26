@@ -1,5 +1,6 @@
 package DAO;
 
+import entities.Card;
 import entities.Sales;
 import entities.Vehicle;
 import jakarta.persistence.EntityManager;
@@ -21,5 +22,10 @@ public class SalesDAO {
         em.persist(vehicle);
         transaction.commit();
         System.out.println("Salvato");
+    }
+
+    public Sales findById(long id){
+        Sales sales = em.find(Sales.class,id);
+        return sales;
     }
 }

@@ -10,7 +10,11 @@ public class User{
     private long user_id;
     private String name;
     private String surname;
+
+
+
     @OneToOne(mappedBy = "user")
+
     private Card card;
 
 
