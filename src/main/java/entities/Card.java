@@ -10,7 +10,7 @@ import java.util.List;
 public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "card_number")
+    @Column(name = "card_id")
     private long cardNumber;
     @Column(name = "date_of_issue")
     private LocalDate dateOfIssue;
