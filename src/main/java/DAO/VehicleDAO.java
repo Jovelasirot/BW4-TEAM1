@@ -19,4 +19,9 @@ public class VehicleDAO {
         transaction.commit();
         System.out.println("The vehicle with id: " + vehicle.getId() + ", has been saved correctly");
     }
+
+    public Vehicle findById(long vehicle_id){
+        Vehicle vehicle = em.find(Vehicle.class,vehicle_id);
+        return vehicle;
+    }
 }

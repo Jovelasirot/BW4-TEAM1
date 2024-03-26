@@ -27,7 +27,7 @@ public class Ticket {
 private Vehicle vehicle;
 
 
-    public Ticket( Date issueDate, Validation stato, long vehicle_id) {
+    public Ticket(Date issueDate, Validation stato, long vehicle_id) {
 
         this.issueDate = issueDate;
         this.validation = stato;
