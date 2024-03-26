@@ -19,4 +19,5 @@ public class TicketDAO {
         transaction.commit();
         System.out.println("The ticket with id: " + ticket.getTicket_id() + ", has been saved correctly");
     }
+
 }

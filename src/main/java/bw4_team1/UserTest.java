@@ -32,12 +32,12 @@ public class UserTest {
         Random random = new Random();
 
         Supplier<User> userSupplier = () -> (new User(faker.harryPotter().character(),faker.lordOfTheRings().character()));
-//        for(int i=0; i< 30; i++){
-//            udao.save(userSupplier.get());
-//            System.out.println(userSupplier.get());
+        for(int i=0; i< 30; i++){
+            udao.save(userSupplier.get());
+            System.out.println(userSupplier.get());
 
 
-        //}
+        }
 
         Set<Card> cardSet = new HashSet<>();
         for (int i = 0; i < 30; i++) {
