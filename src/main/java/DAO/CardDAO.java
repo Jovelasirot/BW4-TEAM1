@@ -4,6 +4,9 @@ import entities.Card;
 import entities.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
+
+import java.time.LocalDate;
 
 public class CardDAO {
     private final EntityManager em;
@@ -24,5 +27,19 @@ public class CardDAO {
     public Card findById(long card_id){
         Card card = em.find(Card.class,card_id);
         return card;
+    }
+
+    public String ValidityByUserId(long userId) {
+        LocalDate today = LocalDate.now();
+        TypedQuery<Card> query = em.createQuery(
+                "SELECT c FROM Card c WHERE c.user.id = :userId", Card.class);
+        query.setParameter("userId", userId);
+        Card card = query.getSingleResult();
+
+        if (card.getExpiryDate().isAfter(today)) {
+            return "La tessera è valida.";
+        } else {
+            return "La tessera non è valida.";
+        }
     }
 }

@@ -74,6 +74,14 @@ public class Pass {
         this.card = card;
     }
 
+    public Sales getIssue_id() {
+        return Issue_id;
+    }
+
+    public LocalDate getIssueDate() {
+        return IssueDate;
+    }
+
     @Override
     public String toString() {
         return "Pass{" +

@@ -1,6 +1,7 @@
 package DAO;
 
 import entities.Pass;
+import enums.PassDuration;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
@@ -46,4 +47,21 @@ public class PassDAO {
         query.setParameter("endDate", endDate);
         return query.getResultList();
     }
+
+    public String checkPassValidity(Pass pass) {
+        LocalDate today = LocalDate.now();
+        LocalDate expiryDate;
+
+        if (pass.getPassDuration() == PassDuration.MONTHLY) {
+            expiryDate = pass.getIssueDate().plusDays(30);
+        } else if (pass.getPassDuration() == PassDuration.WEEKLY) {
+            expiryDate = pass.getIssueDate().plusDays(7);
+        } else {
+            throw new IllegalArgumentException("Unknown PassDuration value");
+        }
+
+        return today.isAfter(expiryDate) ? "Pass expired" : "Pass valid";
+    }
+
+
 }
