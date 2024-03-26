@@ -10,23 +10,32 @@ public class User{
     private long user_id;
     private String name;
     private String surname;
-    @Column( name = "card_number")
-    private long cardNumber;
-    @OneToOne
+    @OneToOne(mappedBy = "user")
     private Card card;
 
 
     public User(){}
 
-    public User( String name, String surname, long cardNumber) {
+    public User(String name, String surname) {
         this.name = name;
         this.surname = surname;
-        this.cardNumber = cardNumber;
+
     }
+
+    public User(String name, String surname, Card card) {
+        this.name = name;
+        this.surname = surname;
+        this.card= card;
+
+    }
+
+
+
 
     public long getUser_id() {
         return user_id;
     }
+
 
     public void setUser_Id(long user_id) {
         this.user_id = user_id;
@@ -48,13 +57,13 @@ public class User{
         this.surname = surname;
     }
 
-    public long getCardNumber() {
-        return cardNumber;
-    }
-
-    public void setCardNumber(long cardNumber) {
-        this.cardNumber = cardNumber;
-    }
+//    public Card getCard() {
+//        return card;
+//    }
+//
+//    public void setCard(Card card) {
+//        this.card = card;
+//    }
 
     @Override
     public String toString() {
@@ -62,7 +71,6 @@ public class User{
                 "user_id=" + user_id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", cardNumber=" + cardNumber +
                 '}';
     }
 }

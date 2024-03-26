@@ -22,18 +22,17 @@ public class Ticket {
     @Enumerated(EnumType.STRING)
     private Validation validation;
 
-//        @ManyToOne
-//        @JoinColumn()
-//        private Vehicle vehicle_id;
+@ManyToOne
+@JoinColumn(name = "vehicle_id")
+private Vehicle vehicle;
 
 
-    public Ticket(int ticket_id, Date issueDate, Validation stato, long vehicle_id) {
-        this.ticket_id = ticket_id;
+    public Ticket(Date issueDate, Validation stato, long vehicle_id) {
+
         this.issueDate = issueDate;
-
         this.validation = stato;
-//        this.vehicle_id = vehicle_id;
     }
+
 
     public int getTicket_id() {
         return ticket_id;
@@ -60,13 +59,6 @@ public class Ticket {
         this.validation = validation;
     }
 
-//    public long getVehicle_id() {
-//        return vehicle_id;
-//    }
-//
-//    public void setVehicle_id(long vehicle_id) {
-//        this.vehicle_id = vehicle_id;
-//    }
 
     @Override
     public String toString() {
@@ -75,7 +67,6 @@ public class Ticket {
                 ", issueDate=" + issueDate +
 
                 ", validation=" + validation +
-//                ", vehicle_id=" + vehicle_id +
                 '}';
     }
 }
