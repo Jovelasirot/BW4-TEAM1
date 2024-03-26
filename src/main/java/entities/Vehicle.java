@@ -35,7 +35,6 @@ public abstract class Vehicle {
     protected Long periodOnDuty;
     @Column(name = "period_on_maintenance")
     protected Long periodOnMaintenance;
-
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
     protected List<MaintenanceRecord> maintenanceRecords = new ArrayList<>();
 

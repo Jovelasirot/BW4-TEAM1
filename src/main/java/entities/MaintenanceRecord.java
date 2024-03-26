@@ -73,7 +73,7 @@ public class MaintenanceRecord {
             for (Vehicle selectedVehicle : vehicleList) {
                 int numMaintenanceRecords = rdm.nextInt(1, 5);
                 for (int i = 0; i < numMaintenanceRecords; i++) {
-                    LocalDate startDate = LocalDate.now().plusDays(rdm.nextInt(730));
+                    LocalDate startDate = LocalDate.now().minusDays(rdm.nextInt(730));
                     LocalDate endDate = startDate.plusDays(rdm.nextInt(7, 60));
 
                     int rdmReason = rdm.nextInt(reasonsForMaintenance.length);

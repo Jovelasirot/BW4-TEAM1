@@ -34,13 +34,13 @@ public class Tram extends Vehicle {
             LocalDate endDate = LocalDate.now();
             Long period = null;
             if (ServiceType.ON_DUTY.equals(serviceType)) {
-                startDate = startDate.plusDays(rdm.nextInt(730));
+                startDate = startDate.plusDays(rdm.nextInt(365));
                 endDate = startDate.plusDays(rdm.nextInt(7, 60));
                 long periodInMaintenance = ChronoUnit.DAYS.between(startDate, endDate);
                 period = periodInMaintenance;
 
             } else if (ServiceType.IN_MAINTENANCE.equals(serviceType)) {
-                startDate = LocalDate.now().plusDays(rdm.nextInt(730));
+                startDate = LocalDate.now().plusDays(rdm.nextInt(365));
                 endDate = startDate.plusDays(rdm.nextInt(7, 60));
                 long periodInMaintenance = ChronoUnit.DAYS.between(startDate, endDate);
                 period = periodInMaintenance;
@@ -49,7 +49,13 @@ public class Tram extends Vehicle {
 
 
             int averageRouteTime = rdm.nextInt(60, 180);
-            int actualRouteTime = averageRouteTime + rdm.nextInt(0, 5);
+            int actualRouteTime;
+            if (rdm.nextBoolean()) {
+                actualRouteTime = averageRouteTime + rdm.nextInt(0, 15);
+            } else {
+                actualRouteTime = averageRouteTime - rdm.nextInt(0, 5);
+            }
+
 
             int validatedTicket = rdm.nextInt(1000);
 

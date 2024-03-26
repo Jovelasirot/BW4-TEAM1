@@ -56,7 +56,6 @@ public class Route {
                 String startRoute = faker.cat().name();
                 String endRoute = faker.cat().breed();
                 int averageRouteTime = rdm.nextInt(60, 120);
-
                 Route route = new Route(vehicle, startRoute, endRoute, averageRouteTime);
 
                 eM.close();
