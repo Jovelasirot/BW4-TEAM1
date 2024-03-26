@@ -20,17 +20,15 @@ public class CardTest {
     public static void main(String[] args) {
 
         EntityManager em = emf.createEntityManager();
-
         CardDAO card_dao = new CardDAO(em);
-
+        UserDAO user_dao = new UserDAO(em);
         Random random = new Random();
 
-//        Supplier<Card> cardSupplier = () -> (new Card(LocalDate.now().plusDays(random.nextInt(365))));
-//        for (int i = 0; i < 30; i++) {
-//            card_dao.save(cardSupplier.get());
-//            System.out.println(cardSupplier.get());
-//
-//        }
+       // Supplier<Card> cardSupplier = () -> (new Card(LocalDate.now().plusDays(random.nextInt(365)),));
+        for (long i = 0; i < 30; i++) {
+            card_dao.save(new Card(LocalDate.now().plusDays(random.nextInt(365)),user_dao.findById(i)));
+
+        }
 
 
     }

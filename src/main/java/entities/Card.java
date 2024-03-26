@@ -19,6 +19,7 @@ public class Card {
     @OneToMany(mappedBy = "card", cascade = CascadeType.ALL)
     private List<Pass> passes;
     @OneToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     public Card() {
@@ -27,6 +28,7 @@ public class Card {
     public Card(LocalDate dateOfIssue, User user ) {
         this.dateOfIssue = dateOfIssue;
         this.expiryDate = dateOfIssue.plusDays(30);
+        this.user=user;
     }
 
     public long getCardNumber() {

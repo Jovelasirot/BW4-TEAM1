@@ -14,11 +14,11 @@ public class Application {
         TicketDAO td = new TicketDAO(eM);
         TicketTest ticketTest = new TicketTest();
 
-        for (int i =0; i < 30; i++ ){
-            Ticket anotherRandomTicket = ticketTest.get();
-            td.save(anotherRandomTicket);
-
-        }
+//        for (int i =0; i < 30; i++ ){
+//            Ticket anotherRandomTicket = ticketTest.get();
+//            td.save(anotherRandomTicket);
+//
+//        }
 
         System.out.println("Hello World!");
 
