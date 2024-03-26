@@ -14,22 +14,23 @@ public class Pass {
     @Enumerated(EnumType.STRING)
     private PassDuration passDuration;
     @ManyToOne
-    @JoinColumn
     private Sales Issue_id;
     private LocalDate IssueDate;
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "card_id")
     private Card card;
 
 
     public Pass() {
     }
 
-    public Pass(PassDuration passDuration,  LocalDate issueDate,Card card,Sales sales ) {
+    public Pass( PassDuration passDuration,  LocalDate issueDate,Card card, Sales issue_id) {
 
         this.passDuration = passDuration;
 
-        IssueDate= issueDate;
+        this.IssueDate = issueDate;
+        this.card = card;
+        this.Issue_id = issue_id;
 
     }
 
@@ -49,21 +50,21 @@ public class Pass {
         this.passDuration = passDuration;
     }
 
-    public Sales getIssue_id() {
-        return Issue_id;
-    }
+//    public Sales getIsssue_id() {
+//        return Isssue_id;
+//    }
+//
+//    public void setIsssue_id(Sales isssue_id) {
+//        Isssue_id = isssue_id;
+//    }
 
-    public void setIssue_id(Sales issue_id) {
-        Issue_id = issue_id;
-    }
-
-    public LocalDate getIssueDate() {
-        return IssueDate;
-    }
-
-    public void setIssueDate(LocalDate issueDate) {
-        IssueDate = issueDate;
-    }
+//    public int getIssueDate() {
+//        return IssueDate;
+//    }
+//
+//    public void setIssueDate(int issueDate) {
+//        IssueDate = issueDate;
+//    }
 
     public Card getCard() {
         return card;
@@ -78,7 +79,7 @@ public class Pass {
         return "Pass{" +
                 "Pass_id=" + Pass_id +
                 ", passDuration=" + passDuration +
-                ", Issue_id=" + Issue_id +
+//                ", Isssue_id=" + Isssue_id +
                 ", IssueDate=" + IssueDate +
                 ", card=" + card +
                 '}';

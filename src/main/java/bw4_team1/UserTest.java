@@ -33,14 +33,14 @@ public class UserTest {
 
         Supplier<User> userSupplier = () -> (new User(faker.harryPotter().character(),faker.lordOfTheRings().character()));
         for(int i=0; i< 30; i++){
-            udao.save(userSupplier.get());
-            System.out.println(userSupplier.get());
+           udao.save(userSupplier.get());
+           System.out.println(userSupplier.get());
 
 
-        }
+       }
 
         Set<Card> cardSet = new HashSet<>();
-        for (int i = 0; i < 30; i++) {
+        for (int i = 1; i < 30; i++) {
             cdao.save(new Card(LocalDate.now().plusDays(random.nextInt(365)),udao.findById(i)));
 
 

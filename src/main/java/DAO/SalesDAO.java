@@ -1,7 +1,7 @@
 package DAO;
 
+import entities.Card;
 import entities.Sales;
-import entities.User;
 import entities.Vehicle;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -28,6 +28,4 @@ public class SalesDAO {
         Sales sales = em.find(Sales.class,id);
         return sales;
     }
-
-
 }
