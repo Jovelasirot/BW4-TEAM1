@@ -4,6 +4,8 @@ import enums.ServiceType;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -34,9 +36,12 @@ public abstract class Vehicle {
     @Column(name = "period_on_maintenance")
     protected Long periodOnMaintenance;
 
+    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
+    protected List<MaintenanceRecord> maintenanceRecords = new ArrayList<>();
+
     public Vehicle() {
     }
-    
+
     public Vehicle(ServiceType serviceType, LocalDate startDate, LocalDate endDate, int actualRouteTime, int validatedTicket, Long period) {
 
         this.serviceType = serviceType;
