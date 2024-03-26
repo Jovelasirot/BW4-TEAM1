@@ -3,6 +3,9 @@ package DAO;
 import entities.Vehicle;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
+
+import java.util.List;
 
 public class VehicleDAO {
 
@@ -20,8 +23,8 @@ public class VehicleDAO {
         System.out.println("The vehicle with id: " + vehicle.getId() + ", has been saved correctly");
     }
 
-    public Vehicle findById(long vehicle_id){
-        Vehicle vehicle = em.find(Vehicle.class,vehicle_id);
-        return vehicle;
+    public List<Vehicle> getAllVehicles() {
+        TypedQuery<Vehicle> query = em.createQuery("SELECT v FROM Vehicle v", Vehicle.class);
+        return query.getResultList();
     }
 }
