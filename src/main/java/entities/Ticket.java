@@ -32,10 +32,11 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(LocalDate issueDate, Validation stato, Vehicle vehicle) {
+    public Ticket(LocalDate issueDate, Validation stato, Vehicle vehicle,Sales sales) {
         this.vehicle = vehicle;
         this.issueDate = issueDate;
         this.validation = stato;
+        this.sales = sales;
     }
 
     public static Supplier<Ticket> getTicketSupplier(EntityManagerFactory emf) {
@@ -47,19 +48,29 @@ public class Ticket {
 
             TypedQuery<Vehicle> vehicleQuery = eM.createQuery("SELECT v from Vehicle v", Vehicle.class);
             List<Vehicle> vehicleList = vehicleQuery.getResultList();
-            Vehicle selectedVehicle = null;
+            Vehicle selectedVehicle;
+            TypedQuery<Sales> salesQuery = eM.createQuery("SELECT s from Sales s", Sales.class);
+            List<Sales> salesList = salesQuery.getResultList();
+            salesList.forEach(System.out::println);
 
             int rdmValidation = rdm.nextInt(validations.length);
             Validation validationSelector = validations[rdmValidation];
             if (Validation.VALIDATED.equals(validationSelector) && !vehicleList.isEmpty()) {
                 selectedVehicle = vehicleList.get(rdm.nextInt(vehicleList.size()));
+            } else {
+                selectedVehicle = null;
             }
+            for (Sales value : salesList) {
 
-            LocalDate issueDate = LocalDate.now().plusDays(rdm.nextInt(730));
+                return new Ticket(LocalDate.now().plusDays(rdm.nextInt(730)), validationSelector, selectedVehicle, value);
+
+            }
+            return salesList.stream(sales1 -> new Ticket(LocalDate.now().plusDays(rdm.nextInt(730)), validationSelector, selectedVehicle, sales1)).map(sales1 -> );
+
 
             eM.close();
 
-            return new Ticket(issueDate, validationSelector, selectedVehicle);
+            return null;
         };
     }
 
@@ -92,7 +103,7 @@ public class Ticket {
         return "Ticket{" +
                 "ticket_id=" + ticket_id +
                 ", issueDate=" + issueDate +
-
+                ", sales=" + sales +
                 ", validation=" + validation +
                 '}';
     }

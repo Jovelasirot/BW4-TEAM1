@@ -4,7 +4,9 @@ import DAO.MaintenanceRecordDAO;
 import DAO.RouteDAO;
 import DAO.TicketDAO;
 import DAO.VehicleDAO;
+import entities.Bus;
 import entities.Ticket;
+import entities.Tram;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -14,7 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
+import static entities.Bus.getBusSupplier;
 import static entities.Ticket.getTicketSupplier;
+import static entities.Tram.getTramSupplier;
 
 public class VehicleTest {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("atm");
@@ -66,12 +70,14 @@ public class VehicleTest {
 //        List<MaintenanceRecord> maintenanceRecords = maintenanceRecordSupplier.get();
 //        maintenanceRecords.forEach(mrDAO::save);
 //
-//
+
         Supplier<Ticket> ticketSupplier = getTicketSupplier(emf);
         List<Ticket> ticketList = new ArrayList<>();
+
         for (int i = 0; i < 40; i++) {
             ticketList.add(ticketSupplier.get());
         }
+        ticketList.forEach(System.out::println);
         ticketList.forEach(tDAO::save);
 
 
@@ -80,7 +86,7 @@ public class VehicleTest {
         LocalDate dayX = LocalDate.parse("2024-04-11");
         LocalDate dayY = LocalDate.parse("2024-05-11");
 //
-//        tDAO.findTicketsByIssueDateRange(dayX, dayY).forEach(System.out::println);
+        tDAO.findTicketsByIssueDateRange(dayX, dayY).forEach(System.out::println);
 
         emf.close();
         eM.close();

@@ -34,6 +34,7 @@ public class SalesTest {
 
         for (int i = 0; i < 10; i++) {
             salesDAO.save(supplier.get());
+            salesDAO.save(supplier1.get());
         }
 
     }

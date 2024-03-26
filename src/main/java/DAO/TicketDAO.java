@@ -33,7 +33,7 @@ public class TicketDAO {
         return query.getResultList();
     }
 
-    public List<Ticket> findTicketsByIssueDateRange(Date startDate, Date endDate) {
+    public List<Ticket> findTicketsByIssueDateRange(LocalDate startDate, LocalDate endDate) {
         TypedQuery<Ticket> query = em.createQuery(
                 "SELECT t FROM Ticket t WHERE t.issueDate BETWEEN :startDate AND :endDate", Ticket.class);
         query.setParameter("startDate", startDate);
