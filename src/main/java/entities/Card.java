@@ -1,9 +1,12 @@
 package entities;
 
+import DAO.UserDAO;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Random;
+import java.util.function.Supplier;
 
 @Entity
 @Table(name = "cards")
@@ -25,10 +28,28 @@ public class Card {
     public Card() {
     }
 
-    public Card(LocalDate dateOfIssue, User user ) {
+    public Card(LocalDate dateOfIssue, User user) {
         this.dateOfIssue = dateOfIssue;
         this.expiryDate = dateOfIssue.plusDays(30);
-        this.user=user;
+        this.user = user;
+    }
+
+    public static Supplier<Card> getCardSupplier(EntityManagerFactory emf, UserDAO uDAO) {
+        Random rdm = new Random();
+
+
+        return () -> {
+            EntityManager eM = emf.createEntityManager();
+
+            LocalDate dateOfIssue = LocalDate.now().minusDays(rdm.nextInt(730));
+
+            TypedQuery<User> userQuery = eM.createQuery("SELECT u from User u", User.class);
+            List<User> userList = userQuery.getResultList();
+
+            User user = uDAO.findById(rdm.nextInt(userList.size()));
+
+            return new Card(dateOfIssue, user);
+        };
     }
 
     public long getCardNumber() {

@@ -1,12 +1,8 @@
 package DAO;
 
-import entities.Card;
 import entities.Sales;
-import entities.Vehicle;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
 
 public class SalesDAO {
 
@@ -16,16 +12,16 @@ public class SalesDAO {
         this.em = em;
     }
 
-    public void save(Sales vehicle) {
+    public void save(Sales sales) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
-        em.persist(vehicle);
+        em.persist(sales);
         transaction.commit();
-        System.out.println("Salvato");
+        System.out.println("The seller with id:" + sales.getId() + " has been saved correctly");
     }
 
-    public Sales findById(long id){
-        Sales sales = em.find(Sales.class,id);
+    public Sales findById(long id) {
+        Sales sales = em.find(Sales.class, id);
         return sales;
     }
 }
