@@ -13,6 +13,7 @@ public class User{
     @Column( name = "card_number")
     private long cardNumber;
     @OneToOne
+
     private Card card;
 
 
