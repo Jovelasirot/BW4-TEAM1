@@ -28,17 +28,17 @@ public class DataBaseFiller {
 
         UserDAO uDAO = new UserDAO(eM);
         CardDAO cDAO = new CardDAO(eM);
-        PassDAO pDAO = new PassDAO(eM);
         SalesDAO sDAO = new SalesDAO(eM);
+        PassDAO pDAO = new PassDAO(eM);
         VehicleDAO vDAO = new VehicleDAO(eM);
         RouteDAO rDAO = new RouteDAO(eM);
         MaintenanceRecordDAO mrDAO = new MaintenanceRecordDAO(eM);
         TicketDAO tDAO = new TicketDAO(eM);
 
-        handleUserAction(uDAO, cDAO, pDAO, sDAO, vDAO, rDAO, mrDAO, tDAO);
+        handleUserAction(uDAO, cDAO, sDAO, pDAO, vDAO, rDAO, mrDAO, tDAO);
     }
 
-    public static void handleUserAction(UserDAO uDAO, CardDAO cDAO, PassDAO pDAO, SalesDAO sDAO, VehicleDAO vDAO, RouteDAO rDAO, MaintenanceRecordDAO mrDAO, TicketDAO tDAO) {
+    public static void handleUserAction(UserDAO uDAO, CardDAO cDAO, SalesDAO sDAO, PassDAO pDAO, VehicleDAO vDAO, RouteDAO rDAO, MaintenanceRecordDAO mrDAO, TicketDAO tDAO) {
         Scanner sc = new Scanner(System.in);
         int handleAction;
 
