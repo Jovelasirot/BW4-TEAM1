@@ -5,6 +5,8 @@ import entities.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
+import java.util.List;
+
 public class CardDAO {
     private final EntityManager em;
 
@@ -13,7 +15,7 @@ public class CardDAO {
         this.em = em;
     }
 
-    public void save(Card card){
+    public void save(Card card) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         em.persist(card);
@@ -21,8 +23,10 @@ public class CardDAO {
         System.out.println("The card: " + card.getCardNumber() + ", has been correctly saved");
     }
 
-    public Card findById(long card_id){
-        Card card = em.find(Card.class,card_id);
+    public Card findById(long cardNumber) {
+        Card card = em.find(Card.class, cardNumber);
         return card;
     }
 }
+
+

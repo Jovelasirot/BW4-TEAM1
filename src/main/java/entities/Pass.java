@@ -3,6 +3,8 @@ package entities;
 import enums.PassDuration;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "Pass")
 public class Pass {
@@ -12,21 +14,22 @@ public class Pass {
     @Enumerated(EnumType.STRING)
     private PassDuration passDuration;
     @ManyToOne
-    private Sales Isssue_id;
-    private int IssueDate;
+    @JoinColumn
+    private Sales Issue_id;
+    private LocalDate IssueDate;
     @ManyToOne
-    @JoinColumn(name = "card_number")
+    @JoinColumn
     private Card card;
 
 
     public Pass() {
     }
 
-    public Pass( PassDuration passDuration,  int issueDate) {
+    public Pass(PassDuration passDuration,  LocalDate issueDate,Card card,Sales sales ) {
 
         this.passDuration = passDuration;
 
-        IssueDate = issueDate;
+        IssueDate= issueDate;
 
     }
 
@@ -46,19 +49,19 @@ public class Pass {
         this.passDuration = passDuration;
     }
 
-    public Sales getIsssue_id() {
-        return Isssue_id;
+    public Sales getIssue_id() {
+        return Issue_id;
     }
 
-    public void setIsssue_id(Sales isssue_id) {
-        Isssue_id = isssue_id;
+    public void setIssue_id(Sales issue_id) {
+        Issue_id = issue_id;
     }
 
-    public int getIssueDate() {
+    public LocalDate getIssueDate() {
         return IssueDate;
     }
 
-    public void setIssueDate(int issueDate) {
+    public void setIssueDate(LocalDate issueDate) {
         IssueDate = issueDate;
     }
 
@@ -75,7 +78,7 @@ public class Pass {
         return "Pass{" +
                 "Pass_id=" + Pass_id +
                 ", passDuration=" + passDuration +
-                ", Isssue_id=" + Isssue_id +
+                ", Issue_id=" + Issue_id +
                 ", IssueDate=" + IssueDate +
                 ", card=" + card +
                 '}';

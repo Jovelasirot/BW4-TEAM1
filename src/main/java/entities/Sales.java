@@ -10,12 +10,12 @@ import java.util.List;
 public class Sales {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected int id;
+    protected long id;
 
     @OneToMany (mappedBy = "sales")
     private List<Ticket> tickets;
 
-    @OneToMany (mappedBy = "Pass_id")
+    @OneToMany (mappedBy = "Issue_id")
     private List<Pass> passes;
 
 
