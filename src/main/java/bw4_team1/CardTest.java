@@ -26,7 +26,7 @@ public class CardTest {
 
        // Supplier<Card> cardSupplier = () -> (new Card(LocalDate.now().plusDays(random.nextInt(365)),));
         for (long i = 0; i < 30; i++) {
-            card_dao.save(new Card(LocalDate.now().plusDays(random.nextInt(365)),user_dao.findById(i)));
+            card_dao.save(new Card(LocalDate.now().minusDays(random.nextInt(730)),user_dao.findById(i)));
 
         }
 

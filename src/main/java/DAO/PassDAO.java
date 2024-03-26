@@ -18,4 +18,6 @@ public class PassDAO {
         transaction.commit();
         System.out.println("The pass with id: " + pass.getPass_id() + ", has been saved correctly");
     }
+
+
 }

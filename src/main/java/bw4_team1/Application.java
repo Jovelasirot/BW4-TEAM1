@@ -1,6 +1,6 @@
 package bw4_team1;
 
-import DAO.TicketDAO;
+import DAO.*;
 import entities.Ticket;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -12,52 +12,101 @@ public class Application {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("atm");
     public static void main(String[] args) {
 
-        EntityManager eM = emf.createEntityManager();
+        EntityManager em = emf.createEntityManager();
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("-------------------------WELCOME TO OUR TRANSPORT COMPANY'S APP---------------------------");
-        System.out.println("Dear user, please press:");
-        System.out.println("1 To create your own card if you don't have one yet") ;
-        System.out.println("2 to buy a daily ticket or a weekly/monthly pass");
-        System.out.println("3 to check the route of the bus/tram");
-        System.out.println("0 to exit from the application.");
-
-        answer=scanner.nextInt();
-
-        switch(answer){
-
-            case 0:
-                System.out.println("Thanks and see you soon :)");
-                scanner.close();
+        UserDAO udao= new UserDAO(em);
+        SalesDAO sdao= new SalesDAO(em);
+        PassDAO pdao= new PassDAO(em);
+        CardDAO cdao = new CardDAO(em);
 
 
 
-            case 1:
-                System.out.println("");
-                break;
+
+        app:
+        while (true){
+            int answer;
+
+            System.out.println("-------------------------WELCOME TO OUR TRANSPORT COMPANY'S APP---------------------------");
+            System.out.println("Hi there, follow the steps below to access the app:");
+            System.out.println("Please press 1 if you're a user, otherwise press 2 if you're an admin.");
+            answer = scanner.nextInt();
 
 
-            case 2:
-                break;
+//            System.out.println("Now, select the options below:");
+//            System.out.println("1 To check if your card is still valid");
+//            System.out.println("2 To check if your ticket/pass is valid");
 
 
 
 
 
-            case 3:
-                break;
+
+//            System.out.println("Dear user, please press:");
+//            System.out.println("1 To check the bus/tram route");
+//            System.out.println("2 To check the time of the route");
+//            System.out.println("3 To check if your card is still valid");
+//            System.out.println("4 To check if the bus/tram is on maintenance or in service");
+//            System.out.println("5 To check where the ticket or the pass was sold from");
+//            System.out.println("6 To check if your ticket/pass is valid");
+//            System.out.println("0 to exit from the application.");
 
 
 
 
-            case 4:
-                break;
+
+            switch (answer) {
+
+                case 0:
+                    System.out.println("Thanks and see you soon :)");
+                    scanner.close();
+                    break app;
 
 
+                case 1:
+                    System.out.println("Please insert your ID");
+                    long id= scanner.nextLong();
+                    System.out.println("Now, select the options below:");
+                    System.out.println("1 To check if your card is still valid");
+//                    System.out.println("2 To check if your ticket is valid");
+//                    System.out.println("3 To check if your pass is valid");
+                    int userInput= scanner.nextInt();
 
-            default:
+                    switch(userInput){
+                        case 1:
+                            System.out.println(cdao.ValidityByUserId(id));
+                            break;
+
+//                        case 2:
+//                            System.out.println();
+                    }
+                    break;
 
 
+                case 2:
+                    System.out.println("2 to check ");
+                    break;
+
+
+                case 3:
+                    break;
+
+
+                case 4:
+                    break;
+
+
+                case 5:
+                    break;
+
+                case 6:
+                    break;
+
+
+                default:
+
+
+            }
 
         }
 
@@ -70,6 +119,6 @@ public class Application {
 
 
         emf.close();
-        eM.close();
+        em.close();
     }
 }

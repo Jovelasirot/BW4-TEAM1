@@ -27,7 +27,7 @@ public class Card {
 
     public Card(LocalDate dateOfIssue, User user ) {
         this.dateOfIssue = dateOfIssue;
-        this.expiryDate = dateOfIssue.plusDays(30);
+        this.expiryDate = dateOfIssue.plusDays(365);
         this.user=user;
     }
 
