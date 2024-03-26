@@ -53,16 +53,17 @@ public class MaintenanceRecord {
 
             TypedQuery<Vehicle> vehicleQuery = eM.createQuery("SELECT v from Vehicle v", Vehicle.class);
             List<Vehicle> vehicleList = vehicleQuery.getResultList();
-            int rdmVehicleSelector = rdm.nextInt(vehicleList.size());
-            Vehicle selectedVehicle = vehicleList.get(rdmVehicleSelector);
 
-            int numMaintenanceRecords = rdm.nextInt(1, 5);
             List<MaintenanceRecord> maintenanceRecords = new ArrayList<>();
-            for (int i = 0; i < numMaintenanceRecords; i++) {
-                LocalDate startDate = LocalDate.now().plusDays(rdm.nextInt(730));
-                LocalDate endDate = startDate.plusDays(rdm.nextInt(7, 60));
-                String reason = faker.lorem().sentence();
-                maintenanceRecords.add(new MaintenanceRecord(selectedVehicle, startDate, endDate, reason));
+
+            for (Vehicle selectedVehicle : vehicleList) {
+                int numMaintenanceRecords = rdm.nextInt(1, 5);
+                for (int i = 0; i < numMaintenanceRecords; i++) {
+                    LocalDate startDate = LocalDate.now().plusDays(rdm.nextInt(730));
+                    LocalDate endDate = startDate.plusDays(rdm.nextInt(7, 60));
+                    String reason = faker.lorem().sentence();
+                    maintenanceRecords.add(new MaintenanceRecord(selectedVehicle, startDate, endDate, reason));
+                }
             }
 
             eM.close();
@@ -70,7 +71,7 @@ public class MaintenanceRecord {
             return maintenanceRecords;
         };
     }
-    
+
 
     public String periodCalculator(LocalDate startDate, LocalDate endDate) {
         return startDate.toString() + " - " + endDate.toString();

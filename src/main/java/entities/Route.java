@@ -3,6 +3,7 @@ package entities;
 import com.github.javafaker.Faker;
 import jakarta.persistence.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Supplier;
@@ -46,17 +47,25 @@ public class Route {
 
             TypedQuery<Vehicle> vehicleQuery = eM.createQuery("SELECT v from Vehicle v", Vehicle.class);
             List<Vehicle> vehicleList = vehicleQuery.getResultList();
-            int rdmVehicleSelector = rdm.nextInt(vehicleList.size());
-            Vehicle selectedVehicle = vehicleList.get(rdmVehicleSelector);
 
-            String startRoute = faker.harryPotter().character();
-            String endRoute = faker.harryPotter().character();
 
-            int averageRouteTime = rdm.nextInt(60, 120);
+            Collections.shuffle(vehicleList, rdm);
 
-            eM.close();
 
-            return new Route(selectedVehicle, startRoute, endRoute, averageRouteTime);
+            for (Vehicle vehicle : vehicleList) {
+                String startRoute = faker.cat().name();
+                String endRoute = faker.cat().breed();
+                int averageRouteTime = rdm.nextInt(60, 120);
+
+                Route route = new Route(vehicle, startRoute, endRoute, averageRouteTime);
+
+                eM.close();
+
+                return route;
+            }
+
+
+            return null;
         };
     }
 

@@ -4,7 +4,7 @@ import DAO.MaintenanceRecordDAO;
 import DAO.RouteDAO;
 import DAO.VehicleDAO;
 import entities.MaintenanceRecord;
-import entities.Vehicle;
+import entities.Route;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import static entities.MaintenanceRecord.getMaintenanceRecords;
+import static entities.Route.getRouteSupplier;
 
 public class VehicleTest {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("atm");
@@ -26,12 +27,12 @@ public class VehicleTest {
         RouteDAO rDAO = new RouteDAO(eM);
         MaintenanceRecordDAO mrDAO = new MaintenanceRecordDAO(eM);
 
-//        Supplier<Route> routeSupplier = getRouteSupplier(emf);
-//        List<Route> routeList = new ArrayList<>();
-//        for (int i = 0; i < 60; i++) {
-//            routeList.add(routeSupplier.get());
-//        }
-//        routeList.forEach(rDAO::save);
+        Supplier<Route> routeSupplier = getRouteSupplier(emf);
+        List<Route> routeList = new ArrayList<>();
+        for (int i = 0; i < 60; i++) {
+            routeList.add(routeSupplier.get());
+        }
+        routeList.forEach(rDAO::save);
 
 //        Supplier<Bus> busSupplier = getBusSupplier();
 //        List<Bus> busList = new ArrayList<>();
@@ -47,19 +48,22 @@ public class VehicleTest {
 //        }
 //        tramList.forEach(vDAO::save);
 
-        Supplier<List<MaintenanceRecord>> maintenanceRecordsSupplier = getMaintenanceRecords(emf);
-        List<Vehicle> vehicleList = vDAO.getAllVehicles();
-        List<MaintenanceRecord> maintenanceRecordList = new ArrayList<>();
-
-        for (Vehicle vehicle : vehicleList) {
-            List<MaintenanceRecord> maintenanceRecordsForVehicle = maintenanceRecordsSupplier.get();
-            for (MaintenanceRecord maintenanceRecord : maintenanceRecordsForVehicle) {
-                maintenanceRecord.setVehicle(vehicle);
-                maintenanceRecordList.add(maintenanceRecord);
-            }
-        }
-
-        maintenanceRecordList.forEach(mrDAO::save);
+//        Supplier<List<MaintenanceRecord>> maintenanceRecordsSupplier = getMaintenanceRecords(emf);
+//        List<Vehicle> vehicleList = vDAO.getAllVehicles();
+//        List<MaintenanceRecord> maintenanceRecordList = new ArrayList<>();
+//
+//        for (Vehicle vehicle : vehicleList) {
+//            List<MaintenanceRecord> maintenanceRecordsForVehicle = maintenanceRecordsSupplier.get();
+//            for (MaintenanceRecord maintenanceRecord : maintenanceRecordsForVehicle) {
+//                maintenanceRecord.setVehicle(vehicle);
+//                maintenanceRecordList.add(maintenanceRecord);
+//            }
+//        }
+//
+//        maintenanceRecordList.forEach(mrDAO::save);
+        Supplier<List<MaintenanceRecord>> maintenanceRecordSupplier = getMaintenanceRecords(emf);
+        List<MaintenanceRecord> maintenanceRecords = maintenanceRecordSupplier.get();
+        maintenanceRecords.forEach(mrDAO::save);
 
 
         emf.close();
