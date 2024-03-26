@@ -11,8 +11,7 @@ public class Application {
     public static void main(String[] args) {
 
         EntityManager eM = emf.createEntityManager();
-
-
+        
         System.out.println("Hello World!");
 
 

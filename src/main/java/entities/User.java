@@ -10,22 +10,29 @@ public class User{
     private long user_id;
     private String name;
     private String surname;
-    @OneToOne
 
 
 
-    @JoinColumn(name = "card_number")
+    @OneToOne(mappedBy = "user")
 
     private Card card;
 
 
     public User(){}
 
-    public User( String name, String surname) {
+    public User(String name, String surname) {
         this.name = name;
         this.surname = surname;
 
     }
+
+    public User(String name, String surname, Card card) {
+        this.name = name;
+        this.surname = surname;
+        this.card= card;
+
+    }
+
 
 
 
