@@ -108,4 +108,15 @@ public class Route {
     public void setAverageRouteTime(int averageRouteTime) {
         this.averageRouteTime = averageRouteTime;
     }
+
+    @Override
+    public String toString() {
+        return "Route{" +
+                "vehicle=" + vehicle +
+                ", id=" + id +
+                ", starRoute='" + starRoute + '\'' +
+                ", endRoute='" + endRoute + '\'' +
+                ", averageRouteTime=" + averageRouteTime +
+                '}';
+    }
 }
