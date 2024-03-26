@@ -2,19 +2,19 @@ package bw4_team1;
 
 import DAO.MaintenanceRecordDAO;
 import DAO.RouteDAO;
+import DAO.TicketDAO;
 import DAO.VehicleDAO;
-import entities.MaintenanceRecord;
-import entities.Route;
+import entities.Ticket;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static entities.MaintenanceRecord.getMaintenanceRecords;
-import static entities.Route.getRouteSupplier;
+import static entities.Ticket.getTicketSupplier;
 
 public class VehicleTest {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("atm");
@@ -26,13 +26,14 @@ public class VehicleTest {
         VehicleDAO vDAO = new VehicleDAO(eM);
         RouteDAO rDAO = new RouteDAO(eM);
         MaintenanceRecordDAO mrDAO = new MaintenanceRecordDAO(eM);
+        TicketDAO tDAO = new TicketDAO(eM);
 
-        Supplier<Route> routeSupplier = getRouteSupplier(emf);
-        List<Route> routeList = new ArrayList<>();
-        for (int i = 0; i < 60; i++) {
-            routeList.add(routeSupplier.get());
-        }
-        routeList.forEach(rDAO::save);
+//        Supplier<Route> routeSupplier = getRouteSupplier(emf);
+//        List<Route> routeList = new ArrayList<>();
+//        for (int i = 0; i < 60; i++) {
+//            routeList.add(routeSupplier.get());
+//        }
+//        routeList.forEach(rDAO::save);
 
 //        Supplier<Bus> busSupplier = getBusSupplier();
 //        List<Bus> busList = new ArrayList<>();
@@ -61,10 +62,25 @@ public class VehicleTest {
 //        }
 //
 //        maintenanceRecordList.forEach(mrDAO::save);
-        Supplier<List<MaintenanceRecord>> maintenanceRecordSupplier = getMaintenanceRecords(emf);
-        List<MaintenanceRecord> maintenanceRecords = maintenanceRecordSupplier.get();
-        maintenanceRecords.forEach(mrDAO::save);
+//        Supplier<List<MaintenanceRecord>> maintenanceRecordSupplier = getMaintenanceRecords(emf);
+//        List<MaintenanceRecord> maintenanceRecords = maintenanceRecordSupplier.get();
+//        maintenanceRecords.forEach(mrDAO::save);
+//
+//
+        Supplier<Ticket> ticketSupplier = getTicketSupplier(emf);
+        List<Ticket> ticketList = new ArrayList<>();
+        for (int i = 0; i < 40; i++) {
+            ticketList.add(ticketSupplier.get());
+        }
+        ticketList.forEach(tDAO::save);
 
+
+        LocalDate today = LocalDate.now();
+        LocalDate todayPlusSeven = today.plusDays(7);
+        LocalDate dayX = LocalDate.parse("2024-04-11");
+        LocalDate dayY = LocalDate.parse("2024-05-11");
+//
+//        tDAO.findTicketsByIssueDateRange(dayX, dayY).forEach(System.out::println);
 
         emf.close();
         eM.close();

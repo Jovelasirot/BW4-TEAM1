@@ -3,7 +3,10 @@ package entities;
 import enums.Validation;
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Random;
+import java.util.function.Supplier;
 
 
 @Entity
@@ -13,7 +16,7 @@ public class Ticket {
     @GeneratedValue
     private int ticket_id; // primary key
     @Column
-    private Date issueDate;
+    private LocalDate issueDate;
 
     @ManyToOne
     @JoinColumn(name = "sales_id")
@@ -22,17 +25,43 @@ public class Ticket {
     @Enumerated(EnumType.STRING)
     private Validation validation;
 
-@ManyToOne
-@JoinColumn(name = "vehicle_id")
-private Vehicle vehicle;
+    @ManyToOne
+    @JoinColumn(name = "vehicle_id")
+    private Vehicle vehicle;
 
+    public Ticket() {
+    }
 
-    public Ticket(Date issueDate, Validation stato, long vehicle_id) {
-
+    public Ticket(LocalDate issueDate, Validation stato, Vehicle vehicle) {
+        this.vehicle = vehicle;
         this.issueDate = issueDate;
         this.validation = stato;
     }
 
+    public static Supplier<Ticket> getTicketSupplier(EntityManagerFactory emf) {
+        Random rdm = new Random();
+        Validation[] validations = Validation.values();
+
+        return () -> {
+            EntityManager eM = emf.createEntityManager();
+
+            TypedQuery<Vehicle> vehicleQuery = eM.createQuery("SELECT v from Vehicle v", Vehicle.class);
+            List<Vehicle> vehicleList = vehicleQuery.getResultList();
+            Vehicle selectedVehicle = null;
+
+            int rdmValidation = rdm.nextInt(validations.length);
+            Validation validationSelector = validations[rdmValidation];
+            if (Validation.VALIDATED.equals(validationSelector) && !vehicleList.isEmpty()) {
+                selectedVehicle = vehicleList.get(rdm.nextInt(vehicleList.size()));
+            }
+
+            LocalDate issueDate = LocalDate.now().plusDays(rdm.nextInt(730));
+
+            eM.close();
+
+            return new Ticket(issueDate, validationSelector, selectedVehicle);
+        };
+    }
 
     public int getTicket_id() {
         return ticket_id;
@@ -42,14 +71,13 @@ private Vehicle vehicle;
         this.ticket_id = ticket_id;
     }
 
-    public Date getIssueDate() {
+    public LocalDate getIssueDate() {
         return issueDate;
     }
 
-    public void setIssueDate(Date issueDate) {
+    public void setIssueDate(LocalDate issueDate) {
         this.issueDate = issueDate;
     }
-
 
     public Validation getValidation() {
         return validation;
@@ -58,7 +86,6 @@ private Vehicle vehicle;
     public void setValidation(Validation validation) {
         this.validation = validation;
     }
-
 
     @Override
     public String toString() {

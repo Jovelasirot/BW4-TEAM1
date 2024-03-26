@@ -19,20 +19,21 @@ import java.util.stream.Collectors;
 public class SalesTest {
 
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("atm");
+
     public static void main(String[] args) {
-    EntityManager eM = emf.createEntityManager();
-    SalesDAO salesDAO = new SalesDAO(eM);
-    Faker faker = new Faker();
-    Random random = new Random();
+        EntityManager eM = emf.createEntityManager();
+        SalesDAO salesDAO = new SalesDAO(eM);
+        Faker faker = new Faker();
+        Random random = new Random();
         List<Status> colorList = Arrays.stream(Status.values())
                 .collect(Collectors.toList());
 
 
-        Supplier<Sales> supplier = ()->(new VerifiedSupplier(faker.harryPotter().character()));
+        Supplier<Sales> supplier = () -> (new VerifiedSupplier(faker.harryPotter().character()));
         Supplier<Sales> supplier1 = () -> (new VendingMachine(colorList.get(random.nextInt(0, colorList.size()))));
 
-       for (int i = 0; i < 10; i++) {
-          salesDAO.save(supplier.get());
+        for (int i = 0; i < 10; i++) {
+            salesDAO.save(supplier.get());
         }
 
     }
