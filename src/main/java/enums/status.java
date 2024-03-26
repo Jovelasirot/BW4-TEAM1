@@ -1,5 +1,8 @@
 package enums;
 
-public enum status {
-    ATTIVO,FUORI_SERVIZIO;
+public enum Status {
+
+        ATTIVO,FUORI_SERVIZIO;
+
+
 }

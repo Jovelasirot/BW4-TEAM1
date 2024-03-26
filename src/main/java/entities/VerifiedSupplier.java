@@ -3,7 +3,6 @@ package entities;
 import jakarta.persistence.*;
 
 @Entity
-//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class VerifiedSupplier extends Sales{
 
 
@@ -12,8 +11,8 @@ public class VerifiedSupplier extends Sales{
 
     public VerifiedSupplier() {}
 
-    public VerifiedSupplier(int id,String supplierName) {
-        super(id);
+    public VerifiedSupplier(String supplierName) {
+//        super(id);
         this.supplierName = supplierName;
     }
 

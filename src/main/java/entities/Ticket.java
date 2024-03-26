@@ -27,11 +27,12 @@ public class Ticket {
 private Vehicle vehicle;
 
 
-    public Ticket(int ticket_id, Date issueDate, Validation stato, long vehicle_id) {
-        this.ticket_id = ticket_id;
+    public Ticket( Date issueDate, Validation stato, long vehicle_id) {
+
         this.issueDate = issueDate;
         this.validation = stato;
     }
+
 
     public int getTicket_id() {
         return ticket_id;

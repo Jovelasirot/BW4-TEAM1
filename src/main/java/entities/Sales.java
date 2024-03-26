@@ -21,9 +21,10 @@ public class Sales {
 
     public Sales() { }
 
-    public Sales(int id) {
-        this.id = id;
-    }
+//    public Sales(int id) {
+//        this.id = id;
+//    }
+
 
 
 }
