@@ -66,20 +66,19 @@ public class Application {
 
 
                 case 1:
+                    app2:
+                    while (true) {
                     System.out.println("Now, select the options below:");
                     System.out.println("1 To check if your card is still valid");
                     System.out.println("2 To check if your ticket has been validated");
                     System.out.println("3 To check if your pass is valid");
                     System.out.println("0 - To go back");
                     int inputUser = input.nextInt();
-                    app2:
-                    while (true) {
-
 
                         switch (inputUser) {
 
                             case 0:
-                                System.out.println("Thanks and see you soon");
+                                System.out.println("Going back");
                                 break app2;
                             case 1:
                                 System.out.println("Insert your ID:");
@@ -96,7 +95,7 @@ public class Application {
                             case 3:
                                 System.out.println("Insert your pass number");
                                 long idPass = input.nextLong();
-                                System.out.println(pdao.findPassesByIssueId(idPass));
+                                pdao.findPassesByIssueId(idPass).forEach(System.out::println);
                                 break;
 
                             default:
@@ -105,60 +104,89 @@ public class Application {
                         }
                         break;
                     }
+                    break;
 
 
                 case 2:
-                    System.out.println("1 - To check how many times the route has been travelled by a vehicle and the actual time");
-                    System.out.println("2 - To check if a vehicle is on maintenance");
-                    System.out.println("3 - To check the records of maintenances af a single vehicle");
-                    System.out.println("4 - To check the number of tickets validated on a single vehicle");
-                    System.out.println("5 - To check the number of tickets validated in a period of time");
-                    System.out.println("6-  To check the number of tickets sold by a specific seller in a period of time");
-                    System.out.println("6-  To check the number of passes sold by a specific seller in a period of time");
-                    System.out.println("0 - To go back");
-                    int inputAdmin = input.nextInt();
-                    switch (inputAdmin) {
-                        case 1:
-                            System.out.println("Insert the vehicle id");
-                            int adminScanVehicle = input.nextInt();
-                            System.out.println("Insert the route id");
-                            int adminScanRoute = input.nextInt();
-                            routeDAO.RouteData(adminScanVehicle,adminScanRoute);
-                            break;
+                    app3:
+                    while(true) {
+                        System.out.println("1 - To check how many times the route has been travelled by a vehicle and the actual time");
+                        System.out.println("2 - To check if a vehicle is on maintenance");
+                        System.out.println("3 - To check the records of maintenances af a single vehicle");
+                        System.out.println("4 - To check the number of tickets validated on a single vehicle in a period of time");
+                        System.out.println("5-  To check the number of tickets sold by a specific seller in a period of time");
+                        System.out.println("6-  To check the number of passes sold by a specific seller in a period of time");
+                        System.out.println("0 - To go back");
+                        int inputAdmin = input.nextInt();
+                        switch (inputAdmin) {
+                            case 1:
+                                System.out.println("Insert the route id");
+                                long adminScanRoute = input.nextLong();
+                                routeDAO.RouteData(adminScanRoute);
+                                break;
 
-                        case 2:
-                            System.out.println("Insert the vehicle id");
-                            int adInput = input.nextInt();
-                            vdao.checkManteinence(adInput);
-                            break;
-
-
-                        case 3:
-                            break;
+                            case 2:
+                                System.out.println("Insert the vehicle id");
+                                long adInput = input.nextLong();
+                                vdao.checkMaintenance(adInput);
+                                break;
 
 
-                        case 4:
-                            break;
+                            case 3:
+                                System.out.println("Insert the vehicle id");
+                                long vehicleInput = input.nextLong();
+                                VehicleDAO.getVehicleMaintenanceHistory(vehicleInput).forEach(System.out::println);
+                                break;
 
 
-                        case 5:
-                            break;
+                            case 4:
+                                System.out.println("Insert the vehicle id");
+                                long vScanner = input.nextLong();
+                                System.out.println("Insert the start date (year-month-gg)");
+                                String startDate = input.nextLine();
+                                LocalDate startDateInput = LocalDate.parse(startDate);
+                                System.out.println("Insert the end date");
+                                String endDate = input.nextLine();
+                                LocalDate endDateInput = LocalDate.parse(endDate);
+                                System.out.println(tdao.countValidatedTicketsByVehicleIdAndPeriod(vScanner, startDateInput, endDateInput));
 
-                        case 6:
-                            System.out.println("Insert the sales id");
-                            int salesInput = input.nextInt();
-                            System.out.println("Insert the start date (year-month-gg)");
-                            String startDate = input.nextLine();
-                            LocalDate startDateInput = LocalDate.parse(startDate);
-                            System.out.println("Insert the end date");
-                            String endDate = input.nextLine();
-                            LocalDate endDateInput = LocalDate.parse(endDate);
-                            System.out.println(tdao.findTicketsComplete(salesInput,startDateInput,endDateInput));
-                            break;
+                                break;
 
 
-                        default:
+                            case 5:
+                                System.out.println("Insert the sales id");
+                                int salesInput = input.nextInt();
+                                System.out.println("Insert the start date (year-month-gg)");
+                                String startDate2 = input.nextLine();
+                                LocalDate startDateInput2 = LocalDate.parse(startDate2);
+                                System.out.println("Insert the end date");
+                                String endDate2 = input.nextLine();
+                                LocalDate endDateInput2 = LocalDate.parse(endDate2);
+                                System.out.println(tdao.findTicketsComplete(salesInput, startDateInput2, endDateInput2));
+                                break;
+
+                            case 6:
+                                System.out.println("Insert the vehicle id");
+                                long idVehicle = input.nextLong();
+                                System.out.println("Insert the start date (year-month-gg)");
+                                String startDate3 = input.nextLine();
+                                LocalDate startDateInput3 = LocalDate.parse(startDate3);
+                                System.out.println("Insert the end date");
+                                String endDate3 = input.nextLine();
+                                LocalDate endDateInput3 = LocalDate.parse(endDate3);
+                                System.out.println(pdao.findPassesComplete(idVehicle, startDateInput3, endDateInput3));
+                                break;
+
+                            case 0:
+                                System.out.println("Going back");
+                                break app3;
+
+
+                            default:
+                                System.out.println("This option is INVALID!");
+                        }
                     }
+                    break;
 
 
 

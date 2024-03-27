@@ -24,10 +24,10 @@ public class PassDAO {
         System.out.println("The pass with id: " + pass.getPass_id() + ", has been saved correctly");
     }
 
-    public List<Pass> findPassesByIssueId(long issueId) {
+    public List<Pass> findPassesByIssueId(long Pass_id) {
         TypedQuery<Pass> query = em.createQuery(
-                "SELECT p FROM Pass p WHERE p.Isssue_id.id = :issueId", Pass.class);
-        query.setParameter("issueId", issueId);
+                "SELECT p FROM Pass p WHERE p.Pass_id = :Pass_id", Pass.class);
+        query.setParameter("Pass_id", Pass_id);
         return query.getResultList();
     }
 
@@ -39,10 +39,10 @@ public class PassDAO {
         return query.getResultList();
     }
 
-    public List<Pass> findPassesComplete(long issueId, LocalDate startDate, LocalDate endDate) {
+    public List<Pass> findPassesComplete(long IssueId, LocalDate startDate, LocalDate endDate) {
         TypedQuery<Pass> query = em.createQuery(
-                "SELECT p FROM Pass p WHERE p.Isssue_id.id = :issueId AND p.IssueDate BETWEEN :startDate AND :endDate", Pass.class);
-        query.setParameter("issueId", issueId);
+                "SELECT p FROM Pass p WHERE p.Issue_id = :Issue_id AND p.IssueDate BETWEEN :startDate AND :endDate", Pass.class);
+        query.setParameter("Issue_id", IssueId);
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);
         return query.getResultList();

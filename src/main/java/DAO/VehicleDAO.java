@@ -36,19 +36,19 @@ public class VehicleDAO {
         return query.getResultList();
     }
 
-    private Vehicle getVehiclebyId(int vehicle_id){
+    private Vehicle getVehiclebyId(long vehicle_id){
         Vehicle vehicle = em.find(Vehicle.class, vehicle_id);
         return vehicle;
 
     }
-    public void checkManteinence(int vehicle_id) {
+    public void checkMaintenance(long vehicle_id) {
         Vehicle vehicle = getVehiclebyId(vehicle_id);
         if (vehicle != null) {
             LocalDate today = LocalDate.now();
             if (!today.isBefore(vehicle.getMaintenanceStartDate()) && !today.isAfter(vehicle.getMaintenanceEndDate())) {
-                System.out.println("The vehicle is under manteinence.");
+                System.out.println("The vehicle is under maintenance.");
             } else {
-                System.out.println("The vehicle is not under manteinence.");
+                System.out.println("The vehicle is on duty.");
             }
         } else {
             System.out.println("Vehicle by id: " + vehicle_id + "not found");

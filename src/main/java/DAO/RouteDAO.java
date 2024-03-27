@@ -29,12 +29,15 @@ public class RouteDAO {
         if (route == null) throw new NotFoundException(route_id);
         return route;
     }
-        public void RouteData(long vehicle_id, long route_id) {
-            Route myroute = getRouteById(route_id); //
+        public void RouteData(long route_id) {
+            Route myroute = getRouteById(route_id);
                 Random random = new Random();
                 int numberOfRoute = 1 + random.nextInt(5);
+                System.out.println("Vehicle:" + myroute.getVehicle());
                 System.out.println("Number of Routes: " + numberOfRoute);
                 System.out.println("Actual Route Time: " + myroute.getActualRouteTime() + " minutes");
+                System.out.println();
+
 
             }
         }

@@ -145,7 +145,7 @@ public class MaintenanceRecord {
     public String toString() {
         return "MaintenanceRecord{" +
                 "idRecord=" + idRecord +
-                ", vehicle=" + vehicle +
+//                ", vehicle=" + vehicle +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", maintenancePeriod='" + maintenancePeriod + '\'' +
