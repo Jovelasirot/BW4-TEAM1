@@ -1,15 +1,19 @@
 package DAO;
 
+import entities.MaintenanceRecord;
 import entities.Ticket;
 import entities.Vehicle;
 import exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
 
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class VehicleDAO {
 
@@ -51,5 +55,20 @@ public class VehicleDAO {
         }
     }
 
+    private static List<MaintenanceRecord> maintenanceDatabase = new ArrayList<>();
+
+
+    public static void addMaintenanceRecord(MaintenanceRecord record) {
+        maintenanceDatabase.add(record);
     }
+
+    public static List<MaintenanceRecord> getVehicleMaintenanceHistory(Long vehicle_id) {
+        return maintenanceDatabase.stream()
+                .filter(record -> record.getVehicle().getId().equals(vehicle_id))
+                .collect(Collectors.toList());
+    }
+
+    }
+
+
 

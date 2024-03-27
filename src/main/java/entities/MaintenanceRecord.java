@@ -140,4 +140,16 @@ public class MaintenanceRecord {
     public void setReason(String reason) {
         this.reason = reason;
     }
+
+    @Override
+    public String toString() {
+        return "MaintenanceRecord{" +
+                "idRecord=" + idRecord +
+                ", vehicle=" + vehicle +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", maintenancePeriod='" + maintenancePeriod + '\'' +
+                ", reason='" + reason + '\'' +
+                '}';
+    }
 }
