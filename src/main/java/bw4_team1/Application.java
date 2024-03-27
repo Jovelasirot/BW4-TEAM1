@@ -3,6 +3,7 @@ package bw4_team1;
 import DAO.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.Persistence;
 
 import java.time.LocalDate;
@@ -254,6 +255,8 @@ public class Application {
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input, type a number.");
                 input.nextLine();
+            } catch (NoResultException e) {
+                System.out.println("Invalid id, try again (ノಠ益ಠ)ノ彡┻━┻");
             }
         }
 

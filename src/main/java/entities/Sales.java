@@ -57,6 +57,7 @@ public class Sales {
         this.passes = passes;
     }
 
+
     @Override
     public String toString() {
         return "Sales{" +

@@ -51,10 +51,11 @@ public class Ticket {
             List<Vehicle> vehicleList = vehicleQuery.getResultList();
 
 
-            TypedQuery<Sales> salesQuery = eM.createQuery("SELECT s from Sales s", Sales.class);
+            TypedQuery<Sales> salesQuery = eM.createQuery("SELECT s FROM Sales s WHERE s.status = 'ACTIVE'", Sales.class);
             List<Sales> salesList = salesQuery.getResultList();
 
             List<Ticket> ticketsList = new ArrayList<>();
+
 
             for (Sales sales : salesList) {
                 Vehicle selectedVehicle = null;
