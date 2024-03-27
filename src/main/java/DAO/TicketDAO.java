@@ -78,4 +78,13 @@ public class TicketDAO {
             return "The ticket hasn't already been VALIDATED";
         }
     }
+    public long countValidatedTicketsByVehicleIdAndPeriod(int vehicle_id, LocalDate startDate, LocalDate endDate) {
+        TypedQuery<Long> query = em.createQuery(
+                "SELECT COUNT(t) FROM Ticket t WHERE t.sales.vehicle.id = :vehicle_id AND t.validation = :validatedStatus AND t.sales.date >= :startDate AND t.sales.date <= :endDate", Long.class);
+        query.setParameter("vehicleId", vehicle_id);
+        query.setParameter("validatedStatus", Validation.VALIDATED);
+        query.setParameter("startDate", startDate);
+        query.setParameter("endDate", endDate);
+        return query.getSingleResult();
+    }
 }
