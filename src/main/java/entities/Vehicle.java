@@ -27,22 +27,19 @@ public abstract class Vehicle {
     protected LocalDate dutyEndDate;
     @Column(name = "maintenance_end_date")
     protected LocalDate maintenanceEndDate;
-    @Column(name = "actual_route_time")
-    protected int actualRouteTime;
     @Column(name = "validated_ticket")
     protected int validatedTicket;
     @Column(name = "period_on_duty")
     protected Long periodOnDuty;
     @Column(name = "period_on_maintenance")
     protected Long periodOnMaintenance;
-
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
     protected List<MaintenanceRecord> maintenanceRecords = new ArrayList<>();
 
     public Vehicle() {
     }
 
-    public Vehicle(ServiceType serviceType, LocalDate startDate, LocalDate endDate, int actualRouteTime, int validatedTicket, Long period) {
+    public Vehicle(ServiceType serviceType, LocalDate startDate, LocalDate endDate, int validatedTicket, Long period) {
 
         this.serviceType = serviceType;
         if (ServiceType.ON_DUTY.equals(serviceType)) {
@@ -55,7 +52,6 @@ public abstract class Vehicle {
             this.periodOnMaintenance = period;
         }
 
-        this.actualRouteTime = actualRouteTime;
         this.validatedTicket = validatedTicket;
     }
 
@@ -111,14 +107,6 @@ public abstract class Vehicle {
         this.maintenanceEndDate = maintenanceEndDate;
     }
 
-    public int getActualRouteTime() {
-        return actualRouteTime;
-    }
-
-    public void setActualRouteTime(int actualRouteTime) {
-        this.actualRouteTime = actualRouteTime;
-    }
-
     public int getValidatedTicket() {
         return validatedTicket;
     }
@@ -160,11 +148,10 @@ public abstract class Vehicle {
                 ", maintenanceStartDate=" + maintenanceStartDate +
                 ", dutyEndDate=" + dutyEndDate +
                 ", maintenanceEndDate=" + maintenanceEndDate +
-                ", actualRouteTime=" + actualRouteTime +
                 ", validatedTicket=" + validatedTicket +
                 ", periodOnDuty=" + periodOnDuty +
                 ", periodOnMaintenance=" + periodOnMaintenance +
-                ", route=" + route +
+                ", maintenanceRecords=" + maintenanceRecords +
                 '}';
     }
 }

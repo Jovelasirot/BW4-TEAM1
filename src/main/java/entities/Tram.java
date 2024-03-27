@@ -17,8 +17,8 @@ public class Tram extends Vehicle {
     public Tram() {
     }
 
-    public Tram(ServiceType serviceType, LocalDate startDate, LocalDate endDate, int actualRouteTime, int validatedTicket, Long period) {
-        super(serviceType, startDate, endDate, actualRouteTime, validatedTicket, period);
+    public Tram(ServiceType serviceType, LocalDate startDate, LocalDate endDate, int validatedTicket, Long period) {
+        super(serviceType, startDate, endDate, validatedTicket, period);
     }
 
     public static Supplier<Tram> getTramSupplier() {
@@ -34,13 +34,13 @@ public class Tram extends Vehicle {
             LocalDate endDate = LocalDate.now();
             Long period = null;
             if (ServiceType.ON_DUTY.equals(serviceType)) {
-                startDate = startDate.plusDays(rdm.nextInt(730));
+                startDate = startDate.plusDays(rdm.nextInt(365));
                 endDate = startDate.plusDays(rdm.nextInt(7, 60));
                 long periodInMaintenance = ChronoUnit.DAYS.between(startDate, endDate);
                 period = periodInMaintenance;
 
             } else if (ServiceType.IN_MAINTENANCE.equals(serviceType)) {
-                startDate = LocalDate.now().plusDays(rdm.nextInt(730));
+                startDate = LocalDate.now().plusDays(rdm.nextInt(365));
                 endDate = startDate.plusDays(rdm.nextInt(7, 60));
                 long periodInMaintenance = ChronoUnit.DAYS.between(startDate, endDate);
                 period = periodInMaintenance;
@@ -48,12 +48,9 @@ public class Tram extends Vehicle {
             }
 
 
-            int averageRouteTime = rdm.nextInt(60, 180);
-            int actualRouteTime = averageRouteTime + rdm.nextInt(0, 5);
-
             int validatedTicket = rdm.nextInt(1000);
 
-            return new Tram(serviceType, startDate, endDate, actualRouteTime, validatedTicket, period);
+            return new Tram(serviceType, startDate, endDate, validatedTicket, period);
         };
     }
 
@@ -75,10 +72,10 @@ public class Tram extends Vehicle {
                 ", maintenanceStartDate=" + maintenanceStartDate +
                 ", dutyEndDate=" + dutyEndDate +
                 ", maintenanceEndDate=" + maintenanceEndDate +
-                ", actualRouteTime=" + actualRouteTime +
                 ", validatedTicket=" + validatedTicket +
                 ", periodOnDuty=" + periodOnDuty +
                 ", periodOnMaintenance=" + periodOnMaintenance +
+                ", maintenanceRecords=" + maintenanceRecords +
                 '}';
     }
 }

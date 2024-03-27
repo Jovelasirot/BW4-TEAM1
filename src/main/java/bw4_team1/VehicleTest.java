@@ -68,11 +68,8 @@ public class VehicleTest {
 //
 //
         List<Ticket> ticketList = new ArrayList<>();
-
         Supplier<List<Ticket>> ticketSupplier = getTicketSupplier(emf);
         ticketList.addAll(ticketSupplier.get());
-
-
         ticketList.forEach(tDAO::save);
 
 
