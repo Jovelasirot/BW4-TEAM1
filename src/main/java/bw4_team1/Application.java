@@ -7,6 +7,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Application {
@@ -23,6 +24,7 @@ public class Application {
         CardDAO cdao = new CardDAO(em);
         TicketDAO tdao = new TicketDAO(em);
         RouteDAO routeDAO = new RouteDAO(em);
+        VehicleDAO vdao = new VehicleDAO(em);
 
 
 
@@ -111,8 +113,8 @@ public class Application {
                     System.out.println("3 - To check the records of maintenances af a single vehicle");
                     System.out.println("4 - To check the number of tickets validated on a single vehicle");
                     System.out.println("5 - To check the number of tickets validated in a period of time");
-                    System.out.println("6- To check the number of tickets sold by a specific seller");
-                    System.out.println("7 - To check the number of tickets sold in a specific time period");
+                    System.out.println("6-  To check the number of tickets sold by a specific seller in a period of time");
+                    System.out.println("6-  To check the number of passes sold by a specific seller in a period of time");
                     System.out.println("0 - To go back");
                     int inputAdmin = input.nextInt();
                     switch (inputAdmin) {
@@ -127,7 +129,8 @@ public class Application {
                         case 2:
                             System.out.println("Insert the vehicle id");
                             int adInput = input.nextInt();
-                            
+                            vdao.checkManteinence(adInput);
+                            break;
 
 
                         case 3:
@@ -142,6 +145,15 @@ public class Application {
                             break;
 
                         case 6:
+                            System.out.println("Insert the sales id");
+                            int salesInput = input.nextInt();
+                            System.out.println("Insert the start date (year-month-gg)");
+                            String startDate = input.nextLine();
+                            LocalDate startDateInput = LocalDate.parse(startDate);
+                            System.out.println("Insert the end date");
+                            String endDate = input.nextLine();
+                            LocalDate endDateInput = LocalDate.parse(endDate);
+                            System.out.println(tdao.findTicketsComplete(salesInput,startDateInput,endDateInput));
                             break;
 
 
