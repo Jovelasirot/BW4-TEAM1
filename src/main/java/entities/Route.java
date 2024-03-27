@@ -121,6 +121,14 @@ public class Route {
         this.averageRouteTime = averageRouteTime;
     }
 
+    public int getActualRouteTime() {
+        return actualRouteTime;
+    }
+
+    public void setActualRouteTime(int actualRouteTime) {
+        this.actualRouteTime = actualRouteTime;
+    }
+
     @Override
     public String toString() {
         return "Route{" +
@@ -133,3 +141,4 @@ public class Route {
                 '}';
     }
 }
+
