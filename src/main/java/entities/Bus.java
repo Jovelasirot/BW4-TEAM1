@@ -17,8 +17,8 @@ public class Bus extends Vehicle {
     public Bus() {
     }
 
-    public Bus(ServiceType serviceType, LocalDate startDate, LocalDate endDate, int actualRouteTime, int validatedTicket, Long period) {
-        super(serviceType, startDate, endDate, actualRouteTime, validatedTicket, period);
+    public Bus(ServiceType serviceType, LocalDate startDate, LocalDate endDate, int validatedTicket, Long period) {
+        super(serviceType, startDate, endDate, validatedTicket, period);
     }
 
     public static Supplier<Bus> getBusSupplier() {
@@ -47,12 +47,10 @@ public class Bus extends Vehicle {
 
             }
 
-            int averageRouteTime = rdm.nextInt(60, 180);
-            int actualRouteTime = averageRouteTime + rdm.nextInt(0, 5);
 
             int validatedTicket = rdm.nextInt(1000);
 
-            return new Bus(serviceType, startDate, endDate, actualRouteTime, validatedTicket, period);
+            return new Bus(serviceType, startDate, endDate, validatedTicket, period);
         };
     }
 
@@ -74,10 +72,10 @@ public class Bus extends Vehicle {
                 ", maintenanceStartDate=" + maintenanceStartDate +
                 ", dutyEndDate=" + dutyEndDate +
                 ", maintenanceEndDate=" + maintenanceEndDate +
-                ", actualRouteTime=" + actualRouteTime +
                 ", validatedTicket=" + validatedTicket +
                 ", periodOnDuty=" + periodOnDuty +
                 ", periodOnMaintenance=" + periodOnMaintenance +
+                ", maintenanceRecords=" + maintenanceRecords +
                 '}';
     }
 }

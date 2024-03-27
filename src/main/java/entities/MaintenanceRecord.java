@@ -56,12 +56,28 @@ public class MaintenanceRecord {
 
             List<MaintenanceRecord> maintenanceRecords = new ArrayList<>();
 
+            String[] reasonsForMaintenance = {
+                    "Oil change",
+                    "Brake inspection",
+                    "Engine problem",
+                    "Air filter replacement",
+                    "Battery check",
+                    "Polar bear attack",
+                    "Transmission check",
+                    "General cleaning",
+                    "Windows repair",
+                    "Flat tire"
+            };
+
+
             for (Vehicle selectedVehicle : vehicleList) {
                 int numMaintenanceRecords = rdm.nextInt(1, 5);
                 for (int i = 0; i < numMaintenanceRecords; i++) {
-                    LocalDate startDate = LocalDate.now().plusDays(rdm.nextInt(730));
+                    LocalDate startDate = LocalDate.now().minusDays(rdm.nextInt(730));
                     LocalDate endDate = startDate.plusDays(rdm.nextInt(7, 60));
-                    String reason = faker.lorem().sentence();
+
+                    int rdmReason = rdm.nextInt(reasonsForMaintenance.length);
+                    String reason = reasonsForMaintenance[rdmReason];
                     maintenanceRecords.add(new MaintenanceRecord(selectedVehicle, startDate, endDate, reason));
                 }
             }

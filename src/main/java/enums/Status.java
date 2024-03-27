@@ -2,7 +2,7 @@ package enums;
 
 public enum Status {
 
-        ATTIVO,FUORI_SERVIZIO;
+    ACTIVE, OUT_OF_ORDER;
 
 
 }

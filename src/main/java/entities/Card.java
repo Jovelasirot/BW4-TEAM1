@@ -25,10 +25,10 @@ public class Card {
     public Card() {
     }
 
-    public Card(LocalDate dateOfIssue, User user ) {
+    public Card(LocalDate dateOfIssue, User user) {
         this.dateOfIssue = dateOfIssue;
         this.expiryDate = dateOfIssue.plusDays(30);
-        this.user=user;
+        this.user = user;
     }
 
     public long getCardNumber() {

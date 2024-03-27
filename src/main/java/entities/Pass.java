@@ -4,6 +4,9 @@ import enums.PassDuration;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Random;
+import java.util.function.Supplier;
 
 @Entity
 @Table(name = "Pass")
@@ -24,7 +27,7 @@ public class Pass {
     public Pass() {
     }
 
-    public Pass( PassDuration passDuration,  LocalDate issueDate,Card card, Sales issue_id) {
+    public Pass(PassDuration passDuration, LocalDate issueDate, Card card, Sales issue_id) {
 
         this.passDuration = passDuration;
 
@@ -32,6 +35,30 @@ public class Pass {
         this.card = card;
         this.Issue_id = issue_id;
 
+    }
+
+    public static Supplier<Pass> gePassSupplier(EntityManagerFactory emf) {
+        Random rdm = new Random();
+
+        return () -> {
+            EntityManager eM = emf.createEntityManager();
+
+            TypedQuery<Card> cardQuery = eM.createQuery("SELECT c FROM Card c", Card.class);
+            List<Card> cardList = cardQuery.getResultList();
+            Card randomCard = cardList.get(rdm.nextInt(cardList.size()));
+
+            TypedQuery<Sales> salesQuery = eM.createQuery("SELECT s FROM Sales s", Sales.class);
+            List<Sales> salesList = salesQuery.getResultList();
+            Sales randomSale = salesList.get(rdm.nextInt(salesList.size()));
+
+            PassDuration[] passDurations = PassDuration.values();
+            int rdmPassDuration = rdm.nextInt(passDurations.length);
+            PassDuration passDuration = passDurations[rdmPassDuration];
+
+            LocalDate dateOfIssue = LocalDate.now().minusDays(rdm.nextInt(730));
+
+            return new Pass(passDuration, dateOfIssue, randomCard, randomSale);
+        };
     }
 
     public long getPass_id() {
@@ -44,10 +71,6 @@ public class Pass {
 
     public PassDuration getPassDuration() {
         return passDuration;
-    }
-
-    public void setPassDuration(PassDuration passDuration) {
-        this.passDuration = passDuration;
     }
 
 //    public Sales getIsssue_id() {
@@ -65,6 +88,10 @@ public class Pass {
 //    public void setIssueDate(int issueDate) {
 //        IssueDate = issueDate;
 //    }
+
+    public void setPassDuration(PassDuration passDuration) {
+        this.passDuration = passDuration;
+    }
 
     public Card getCard() {
         return card;
