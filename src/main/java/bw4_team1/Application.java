@@ -41,22 +41,6 @@ public class Application {
             int choice = input.nextInt();
 
 
-//            System.out.println("Now, select the options below:");
-//            System.out.println("1 To check if your card is still valid");
-//            System.out.println("2 To check if your ticket/pass is valid");
-
-
-//            System.out.println("Dear user, please press:");
-//            System.out.println("1 To check the bus/tram route");
-//            System.out.println("2 To check the time of the route");
-//            System.out.println("3 To check if your card is still valid");
-//            System.out.println("4 To check if the bus/tram is on maintenance or in service");
-//            System.out.println("5 To check where the ticket or the pass was sold from");
-//            System.out.println("6 To check if your ticket/pass is valid");
-//            System.out.println("0 to exit from the application.");
-
-
-
             switch (choice) {
 
                 case 0:
