@@ -37,9 +37,9 @@ public class CardDAO {
         Card card = query.getSingleResult();
 
         if (card.getExpiryDate().isAfter(today)) {
-            return "La tessera è valida.";
+            return "Your card is valid! .";
         } else {
-            return "La tessera non è valida.";
+            return "Your card IS NOT VALID!.";
         }
     }
 }

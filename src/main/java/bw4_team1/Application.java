@@ -23,8 +23,7 @@ public class Application {
         CardDAO cdao = new CardDAO(em);
         TicketDAO tdao = new TicketDAO(em);
 
-        emf.close();
-        em.close();
+
 
 
 
@@ -66,70 +65,94 @@ public class Application {
                 case 1:
                     System.out.println("Now, select the options below:");
                     System.out.println("1 To check if your card is still valid");
-                    System.out.println("2 To check if your ticket is valid");
+                    System.out.println("2 To check if your ticket has been validated");
                     System.out.println("3 To check if your pass is valid");
+                    System.out.println("0 - To go back");
                     int inputUser = input.nextInt();
-                    switch (inputUser){
-                        case 1:
-                            System.out.println("Insert your ID:");
-                            long id = input.nextLong();
-                            System.out.println(cdao.ValidityByUserId(id));
-                            break;
+                    app2:
+                    while (true) {
 
-                        case 2:
-                            System.out.println("Insert your ticket number");
-                            long idTicket = input.nextLong();
-                            System.out.println(tdao.);
-                            break;
 
-                        case 3:
-                            System.out.println("Insert your pass number");
-                            long idPass = input.nextLong();
-                            System.out.println(pdao.findPassesByIssueId(idPass));
-                            break;
+                        switch (inputUser) {
 
+                            case 0:
+                                System.out.println("Thanks and see you soon");
+                                break app2;
+                            case 1:
+                                System.out.println("Insert your ID:");
+                                long id = input.nextLong();
+                                System.out.println(cdao.ValidityByUserId(id));
+                                break;
+
+                            case 2:
+                                System.out.println("Insert your ticket number");
+                                int idTicket = input.nextInt();
+                                System.out.println(tdao.TicketValidation(idTicket));
+                                break;
+
+                            case 3:
+                                System.out.println("Insert your pass number");
+                                long idPass = input.nextLong();
+                                System.out.println(pdao.findPassesByIssueId(idPass));
+                                break;
+
+                            default:
+                                System.out.println("This option is not valid!");
+
+                        }
+                        break;
                     }
-
-                    int userInput = input.nextInt();
-
-                    switch (userInput) {
-                        case 1:
-                            System.out.println(cdao.ValidityByUserId(id));
-                            break;
-
-//                        case 2:
-//                           System.out.println();
-                    }
-                    break;
 
 
                 case 2:
-                    System.out.println("2 to check ");
-                    break;
+                    System.out.println("1 - To check how many times the route has been travelled by a vehicle and the actual time");
+                    System.out.println("2 - To check if a vehicle is on maintenance");
+                    System.out.println("3 - To check the records of maintenances af a single vehicle");
+                    System.out.println("4 - To check the number of tickets validated on a single vehicle");
+                    System.out.println("5 - To check the number of tickets validated in a period of time");
+                    System.out.println("6- To check the number of tickets sold by a specific seller");
+                    System.out.println("7 - To check the number of tickets sold in a specific time period");
+                    System.out.println("0 - To go back");
+                    int inputAdmin = input.nextInt();
+                    switch (inputAdmin) {
+                        case 1:
 
 
-                case 3:
-                    break;
+                            break;
+
+                        case 2:
 
 
-                case 4:
-                    break;
+                        case 3:
+                            break;
 
 
-                case 5:
-                    break;
-
-                case 6:
-                    break;
+                        case 4:
+                            break;
 
 
-                default:
+                        case 5:
+                            break;
+
+                        case 6:
+                            break;
+
+
+                        default:
+                    }
+            
 
 
             }
 
         }
+
+        emf.close();
+        em.close();
+        input.close();
     }
+
+
 
     }
 
