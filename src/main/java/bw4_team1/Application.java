@@ -32,7 +32,7 @@ public class Application {
         while (true) {
 
             try {
-                System.out.println("------------------------ └| WELCOME TO OUR TRANSPORT COMPANY'S APP |┐----------------------------------------");
+                System.out.println("------------------------ └| WELCOME TO OUR TRANSPORT COMPANY'S APP |┐ ------------------------");
                 System.out.println("Choose the user type:");
                 System.out.println("1 - User");
                 System.out.println("2 - Admin");
