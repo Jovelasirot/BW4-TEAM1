@@ -69,7 +69,7 @@ public class TicketDAO {
 
  }
 
-    public String isTicketValidated(int ticket_id) {
+    public String TicketValidation(int ticket_id) {
         Ticket ticket = getTicketbyID(ticket_id);
 
         if (ticket != null && ticket.getValidation() == Validation.VALIDATED) {

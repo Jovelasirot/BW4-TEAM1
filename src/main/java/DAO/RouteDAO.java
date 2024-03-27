@@ -22,17 +22,4 @@ public class RouteDAO {
         System.out.println("The route with id: " + route.getId() + ", has been saved correctly");
     }
 
-    public int RouteTimeByVehicleId(long vehicleId) {
-
-        Random random = new Random();
-        int count = random.nextInt(5) + 1;
-
-        int randomMinutes = random.nextInt(60);
-
-        int routeTime = Vehicle.averageRouteTime + randomMinutes;
-
-        System.out.println("Il routeTime per il vehicleId " + vehicleId + " è: " + routeTime + " minuti.");
-
-        return routeTime;
-    }
 }
