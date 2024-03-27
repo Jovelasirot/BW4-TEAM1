@@ -18,4 +18,8 @@ public class RouteDAO {
         transaction.commit();
         System.out.println("The route with id: " + route.getId() + ", has been saved correctly");
     }
+
+    public Route findByid(long id) {
+        return em.find(Route.class, id);
+    }
 }
