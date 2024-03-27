@@ -22,6 +22,7 @@ public class Application {
         PassDAO pdao = new PassDAO(em);
         CardDAO cdao = new CardDAO(em);
         TicketDAO tdao = new TicketDAO(em);
+        RouteDAO routeDAO = new RouteDAO(em);
 
 
 
@@ -116,11 +117,17 @@ public class Application {
                     int inputAdmin = input.nextInt();
                     switch (inputAdmin) {
                         case 1:
-
-
+                            System.out.println("Insert the vehicle id");
+                            int adminScanVehicle = input.nextInt();
+                            System.out.println("Insert the route id");
+                            int adminScanRoute = input.nextInt();
+                            routeDAO.RouteData(adminScanVehicle,adminScanRoute);
                             break;
 
                         case 2:
+                            System.out.println("Insert the vehicle id");
+                            int adInput = input.nextInt();
+                            
 
 
                         case 3:
@@ -140,7 +147,7 @@ public class Application {
 
                         default:
                     }
-            
+
 
 
             }
