@@ -28,14 +28,18 @@ public class Route {
     @Column(name = "average_route_time")
     private int averageRouteTime;
 
+    @Column(name = "actual_route_time")
+    private int actualRouteTime;
+
     public Route() {
     }
 
-    public Route(Vehicle vehicle, String starRoute, String endRoute, int averageRouteTime) {
+    public Route(Vehicle vehicle, String starRoute, String endRoute, int averageRouteTime, int actualRouteTime) {
         this.vehicle = vehicle;
         this.starRoute = starRoute;
         this.endRoute = endRoute;
         this.averageRouteTime = averageRouteTime;
+        this.actualRouteTime = actualRouteTime;
     }
 
     public static Supplier<Route> getRouteSupplier(EntityManagerFactory emf) {
@@ -55,8 +59,17 @@ public class Route {
             for (Vehicle vehicle : vehicleList) {
                 String startRoute = faker.cat().name();
                 String endRoute = faker.cat().breed();
-                int averageRouteTime = rdm.nextInt(60, 120);
-                Route route = new Route(vehicle, startRoute, endRoute, averageRouteTime);
+                int averageRouteTime = rdm.nextInt(60, 180);
+
+
+                int actualRouteTime;
+                if (rdm.nextBoolean()) {
+                    actualRouteTime = averageRouteTime + rdm.nextInt(0, 15);
+                } else {
+                    actualRouteTime = averageRouteTime - rdm.nextInt(0, 5);
+                }
+
+                Route route = new Route(vehicle, startRoute, endRoute, averageRouteTime, actualRouteTime);
 
                 eM.close();
 
@@ -116,6 +129,7 @@ public class Route {
                 ", starRoute='" + starRoute + '\'' +
                 ", endRoute='" + endRoute + '\'' +
                 ", averageRouteTime=" + averageRouteTime +
+                ", actualRouteTime=" + actualRouteTime +
                 '}';
     }
 }

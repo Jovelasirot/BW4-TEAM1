@@ -17,8 +17,8 @@ public class Tram extends Vehicle {
     public Tram() {
     }
 
-    public Tram(ServiceType serviceType, LocalDate startDate, LocalDate endDate, int actualRouteTime, int validatedTicket, Long period) {
-        super(serviceType, startDate, endDate, actualRouteTime, validatedTicket, period);
+    public Tram(ServiceType serviceType, LocalDate startDate, LocalDate endDate, int validatedTicket, Long period) {
+        super(serviceType, startDate, endDate, validatedTicket, period);
     }
 
     public static Supplier<Tram> getTramSupplier() {
@@ -48,18 +48,9 @@ public class Tram extends Vehicle {
             }
 
 
-            int averageRouteTime = rdm.nextInt(60, 180);
-            int actualRouteTime;
-            if (rdm.nextBoolean()) {
-                actualRouteTime = averageRouteTime + rdm.nextInt(0, 15);
-            } else {
-                actualRouteTime = averageRouteTime - rdm.nextInt(0, 5);
-            }
-
-
             int validatedTicket = rdm.nextInt(1000);
 
-            return new Tram(serviceType, startDate, endDate, actualRouteTime, validatedTicket, period);
+            return new Tram(serviceType, startDate, endDate, validatedTicket, period);
         };
     }
 
@@ -81,10 +72,10 @@ public class Tram extends Vehicle {
                 ", maintenanceStartDate=" + maintenanceStartDate +
                 ", dutyEndDate=" + dutyEndDate +
                 ", maintenanceEndDate=" + maintenanceEndDate +
-                ", actualRouteTime=" + actualRouteTime +
                 ", validatedTicket=" + validatedTicket +
                 ", periodOnDuty=" + periodOnDuty +
                 ", periodOnMaintenance=" + periodOnMaintenance +
+                ", maintenanceRecords=" + maintenanceRecords +
                 '}';
     }
 }
