@@ -1,4 +1,5 @@
 package DAO;
+
 import entities.Ticket;
 import enums.Validation;
 import exceptions.NotFoundException;
@@ -7,7 +8,6 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 
@@ -45,7 +45,7 @@ public class TicketDAO {
 
     public List<Ticket> findTicketsComplete(int sales_id, LocalDate startDate, LocalDate endDate) {
         TypedQuery<Ticket> query = em.createQuery(
-                "SELECT t FROM Ticket t WHERE t.sales.sales_id = :salesId AND t.issueDate BETWEEN :startDate AND :endDate", Ticket.class);
+                "SELECT t FROM Ticket t WHERE t.sales.id = :salesId AND t.issueDate BETWEEN :startDate AND :endDate", Ticket.class);
         query.setParameter("salesId", sales_id);
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);
@@ -61,13 +61,12 @@ public class TicketDAO {
     }
 
 
+    private Ticket getTicketbyID(int ticket_id) {
+        Ticket ticket = em.find(Ticket.class, ticket_id);
+        if (ticket == null) throw new NotFoundException(ticket_id);
+        return ticket;
 
- private Ticket getTicketbyID(int ticket_id){
-     Ticket ticket = em.find(Ticket.class, ticket_id);
-     if (ticket == null) throw new NotFoundException(ticket_id);
-     return ticket;
-
- }
+    }
 
     public String TicketValidation(int ticket_id) {
         Ticket ticket = getTicketbyID(ticket_id);
@@ -78,11 +77,12 @@ public class TicketDAO {
             return "The ticket has not been VALIDATED yet";
         }
     }
-    public long countValidatedTicketsByVehicleIdAndPeriod(long vehicle_id, LocalDate startDate, LocalDate endDate) {
+
+    public long countValidatedTicketsByVehicleIdAndPeriod(long vehicleId, LocalDate startDate, LocalDate endDate) {
         TypedQuery<Long> query = em.createQuery(
-                "SELECT COUNT(t) FROM Ticket t WHERE t.sales.vehicle.id = :vehicle_id AND t.validation = :validatedStatus AND t.sales.date >= :startDate AND t.sales.date <= :endDate", Long.class);
-        query.setParameter("vehicleId", vehicle_id);
-        query.setParameter("validatedStatus", Validation.VALIDATED);
+                "SELECT COUNT(t) FROM Ticket t WHERE t.vehicle.id = :vehicleId AND t.validation = :validation AND t.issueDate >= :startDate AND t.issueDate <= :endDate", Long.class);
+        query.setParameter("vehicleId", vehicleId);
+        query.setParameter("validation", Validation.VALIDATED);
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);
         return query.getSingleResult();
