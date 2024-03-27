@@ -18,4 +18,5 @@ public class MaintenanceRecordDAO {
         transaction.commit();
         System.out.println("The record with id: " + record.getIdRecord() + ", has been saved correctly");
     }
+
 }

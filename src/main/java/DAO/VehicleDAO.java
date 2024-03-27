@@ -1,10 +1,14 @@
 package DAO;
 
+import entities.Ticket;
 import entities.Vehicle;
+import exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
 
+
+import java.time.LocalDate;
 import java.util.List;
 
 public class VehicleDAO {
@@ -27,4 +31,25 @@ public class VehicleDAO {
         TypedQuery<Vehicle> query = em.createQuery("SELECT v FROM Vehicle v", Vehicle.class);
         return query.getResultList();
     }
-}
+
+    private Vehicle getVehiclebyId(int vehicle_id){
+        Vehicle vehicle = em.find(Vehicle.class, vehicle_id);
+        return vehicle;
+
+    }
+    public void checkManteinence(int vehicle_id) {
+        Vehicle vehicle = getVehiclebyId(vehicle_id);
+        if (vehicle != null) {
+            LocalDate today = LocalDate.now();
+            if (!today.isBefore(vehicle.getMaintenanceStartDate()) && !today.isAfter(vehicle.getMaintenanceEndDate())) {
+                System.out.println("The vehicle is under manteinence.");
+            } else {
+                System.out.println("The vehicle is not under manteinence.");
+            }
+        } else {
+            System.out.println("Vehicle by id: " + vehicle_id + "not found");
+        }
+    }
+
+    }
+
