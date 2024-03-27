@@ -61,8 +61,9 @@ public class Application {
                             switch (inputUser) {
 
                                 case 0:
-                                    System.out.println("Going back");
+                                    System.out.println("Going back (≚ᄌ≚) ƶ Ƶ");
                                     break app2;
+
                                 case 1:
                                     System.out.println("Insert your ID:");
                                     long id = input.nextLong();
@@ -240,7 +241,7 @@ public class Application {
                                     break;
 
                                 case 0:
-                                    System.out.println("Going back");
+                                    System.out.println("Going back (≚ᄌ≚) ƶ Ƶ");
                                     break app3;
 
 
