@@ -41,7 +41,6 @@ public class VendingMachine extends Sales {
         return "VendingMachine{" +
                 "id=" + id +
                 ", status=" + status +
-                ", Sales id=" + id +
                 '}';
     }
 }
