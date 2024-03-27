@@ -122,9 +122,11 @@ public class DataBaseFiller {
 
     public static void cardsCreator(CardDAO cDAO, UserDAO uDAO) {
         Random rdm = new Random();
-        for (long i = 1; i < 30; i++) {
+        for (long i = 1; i < 15; i++) {
             cDAO.save(new Card(LocalDate.now().minusDays(rdm.nextInt(730)), uDAO.findById(i)));
-
+        }
+        for (long i = 15; i <= 30; i++) {
+            cDAO.save(new Card(LocalDate.now().plusDays(rdm.nextInt(730)), uDAO.findById(i)));
         }
 
     }

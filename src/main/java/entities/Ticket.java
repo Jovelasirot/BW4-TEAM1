@@ -54,7 +54,6 @@ public class Ticket {
             TypedQuery<Sales> salesQuery = eM.createQuery("SELECT s from Sales s", Sales.class);
             List<Sales> salesList = salesQuery.getResultList();
 
-            LocalDate issueDate = LocalDate.now().plusDays(rdm.nextInt(730));
             List<Ticket> ticketsList = new ArrayList<>();
 
             for (Sales sales : salesList) {
@@ -67,6 +66,15 @@ public class Ticket {
                 } else if (Validation.NOT_VALIDATED.equals(validationSelector)) {
                     selectedVehicle = null;
                 }
+
+                LocalDate issueDate;
+                if (rdm.nextBoolean()) {
+                    issueDate = LocalDate.now().plusDays(rdm.nextInt(365));
+                } else {
+                    issueDate = LocalDate.now().minusDays(rdm.nextInt(365));
+                }
+
+
                 Ticket ticket = new Ticket(issueDate, validationSelector, selectedVehicle, sales);
                 ticketsList.add(ticket);
             }

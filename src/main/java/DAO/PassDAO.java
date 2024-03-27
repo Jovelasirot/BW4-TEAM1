@@ -39,13 +39,22 @@ public class PassDAO {
         return query.getResultList();
     }
 
-    public List<Pass> findPassesComplete(long IssueId, LocalDate startDate, LocalDate endDate) {
+    public List<Pass> findPassesComplete(long issueId, LocalDate startDate, LocalDate endDate) {
         TypedQuery<Pass> query = em.createQuery(
-                "SELECT p FROM Pass p WHERE p.Issue_id = :Issue_id AND p.IssueDate BETWEEN :startDate AND :endDate", Pass.class);
-        query.setParameter("Issue_id", IssueId);
+                "SELECT p FROM Pass p WHERE p.issue.id = :issueId AND p.issueDate BETWEEN :startDate AND :endDate", Pass.class);
+        query.setParameter("issueId", issueId);
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);
         return query.getResultList();
+    }
+
+    public long countPassesSoldBySellerInPeriod(long sellerId, LocalDate startDate, LocalDate endDate) {
+        TypedQuery<Long> query = em.createQuery(
+                "SELECT COUNT(p) FROM Pass p WHERE p.sales.id = :sellerId AND p.IssueDate BETWEEN :startDate AND :endDate", Long.class);
+        query.setParameter("sellerId", sellerId);
+        query.setParameter("startDate", startDate);
+        query.setParameter("endDate", endDate);
+        return query.getSingleResult();
     }
 
     public String checkPassValidity(Pass pass) {

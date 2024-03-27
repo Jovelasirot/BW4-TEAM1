@@ -17,7 +17,8 @@ public class Pass {
     @Enumerated(EnumType.STRING)
     private PassDuration passDuration;
     @ManyToOne
-    private Sales Issue_id;
+    @JoinColumn(name = "sales_id")
+    private Sales sales;
     private LocalDate IssueDate;
     @ManyToOne
     @JoinColumn(name = "card_id")
@@ -27,13 +28,13 @@ public class Pass {
     public Pass() {
     }
 
-    public Pass(PassDuration passDuration, LocalDate issueDate, Card card, Sales issue_id) {
+    public Pass(PassDuration passDuration, LocalDate issueDate, Card card, Sales sales) {
 
         this.passDuration = passDuration;
 
         this.IssueDate = issueDate;
         this.card = card;
-        this.Issue_id = issue_id;
+        this.sales = sales;
 
     }
 
@@ -101,12 +102,20 @@ public class Pass {
         this.card = card;
     }
 
-    public Sales getIssue_id() {
-        return Issue_id;
+    public Sales getSales() {
+        return sales;
+    }
+
+    public void setSales(Sales sales) {
+        this.sales = sales;
     }
 
     public LocalDate getIssueDate() {
         return IssueDate;
+    }
+
+    public void setIssueDate(LocalDate issueDate) {
+        IssueDate = issueDate;
     }
 
     @Override
