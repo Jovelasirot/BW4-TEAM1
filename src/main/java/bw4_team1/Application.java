@@ -32,7 +32,7 @@ public class Application {
         while (true) {
 
             try {
-                System.out.println("------------------------ WELCOME TO OUR TRANSPORT COMPANY'S APP----------------------------------------");
+                System.out.println("------------------------ └| WELCOME TO OUR TRANSPORT COMPANY'S APP |┐----------------------------------------");
                 System.out.println("Choose the user type:");
                 System.out.println("1 - User");
                 System.out.println("2 - Admin");
@@ -43,7 +43,7 @@ public class Application {
                 switch (choice) {
 
                     case 0:
-                        System.out.println("Thanks and see you soon :)");
+                        System.out.println("Thanks and see you soon ٩(◕‿◕)۶");
                         input.close();
                         break app;
 
