@@ -7,7 +7,6 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class CardDAO {
     private final EntityManager em;
@@ -17,7 +16,7 @@ public class CardDAO {
         this.em = em;
     }
 
-    public void save(Card card) {
+    public void save(Card card){
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         em.persist(card);
@@ -25,27 +24,22 @@ public class CardDAO {
         System.out.println("The card: " + card.getCardNumber() + ", has been correctly saved");
     }
 
-    public Card findById(long cardNumber) {
-        Card card = em.find(Card.class, cardNumber);
+    public Card findById(long card_id){
+        Card card = em.find(Card.class,card_id);
         return card;
     }
 
+    public String ValidityByUserId(long userId) {
+        LocalDate today = LocalDate.now();
+        TypedQuery<Card> query = em.createQuery(
+                "SELECT c FROM Card c WHERE c.user.id = :userId", Card.class);
+        query.setParameter("userId", userId);
+        Card card = query.getSingleResult();
 
-        public String ValidityByUserId(long user_id) {
-            LocalDate today = LocalDate.now();
-            TypedQuery<Card> query = em.createQuery(
-                    "SELECT c FROM Card c WHERE c.user.id = :user_id", Card.class);
-            query.setParameter("user_id", user_id);
-            Card card = query.getSingleResult();
-
-            if (card.getExpiryDate().isAfter(today)) {
-                return "Your card is valid.";
-            } else {
-                return "Your card IS NOT valid.";
-            }
+        if (card.getExpiryDate().isAfter(today)) {
+            return "La tessera è valida.";
+        } else {
+            return "La tessera non è valida.";
         }
-
     }
-
-
-
+}

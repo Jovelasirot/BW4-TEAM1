@@ -1,6 +1,7 @@
 package DAO;
 import entities.Ticket;
 import enums.Validation;
+import exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
@@ -57,5 +58,24 @@ public class TicketDAO {
         query.setParameter("vehicleId", vehicleId);
         query.setParameter("validatedStatus", Validation.VALIDATED);
         return query.getSingleResult();
+    }
+
+
+
+ private Ticket getTicketbyID(int ticket_id){
+     Ticket ticket = em.find(Ticket.class, ticket_id);
+     if (ticket == null) throw new NotFoundException(ticket_id);
+     return ticket;
+
+ }
+
+    public String TicketValidation(int ticket_id) {
+        Ticket ticket = getTicketbyID(ticket_id);
+
+        if (ticket != null && ticket.getValidation() == Validation.VALIDATED) {
+            return "The ticket has already been VALIDATED";
+        } else {
+            return "The ticket hasn't already been VALIDATED";
+        }
     }
 }

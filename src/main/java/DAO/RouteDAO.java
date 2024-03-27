@@ -1,8 +1,11 @@
 package DAO;
 
 import entities.Route;
+import entities.Vehicle;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+
+import java.util.Random;
 
 public class RouteDAO {
     private final EntityManager em;
@@ -19,7 +22,4 @@ public class RouteDAO {
         System.out.println("The route with id: " + route.getId() + ", has been saved correctly");
     }
 
-    public Route findByid(long id) {
-        return em.find(Route.class, id);
-    }
 }
