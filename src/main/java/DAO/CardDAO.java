@@ -1,7 +1,9 @@
 package DAO;
 
 import entities.Card;
+import entities.Pass;
 import entities.User;
+import exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
@@ -41,5 +43,20 @@ public class CardDAO {
         } else {
             return "Your card IS NOT VALID!.";
         }
+    }
+    public String validityCard (long userId){
+        Card card =findById(userId);
+        LocalDate today = LocalDate.now();
+        if (card == null) {throw new NotFoundException(userId);
+        }else{ if (card.getExpiryDate().isAfter(today)) {
+            return "Your card is valid! .";
+        } else {
+            return "Your card IS NOT VALID!.";
+        }}
+
+
+
+
+
     }
 }

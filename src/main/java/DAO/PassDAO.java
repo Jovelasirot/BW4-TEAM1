@@ -2,6 +2,7 @@ package DAO;
 
 import entities.Pass;
 import enums.PassDuration;
+import exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
@@ -25,10 +26,19 @@ public class PassDAO {
     }
 
     public Pass findPassesByIssueId(long Pass_id) {
-        TypedQuery<Pass> query = em.createQuery(
+       TypedQuery<Pass> query = em.createQuery(
                 "SELECT p FROM Pass p WHERE p.Pass_id = :Pass_id", Pass.class);
-        query.setParameter("Pass_id", Pass_id);
-        return query.getSingleResult();
+            query.setParameter("Pass_id", Pass_id);
+        Pass pass = query.getSingleResult();
+        return pass;
+    }
+    public Pass passValidation(long pass_id) {
+        Pass pass = findPassesByIssueId(pass_id);
+
+        if (pass == null) {
+            throw new NotFoundException(pass_id);
+        }
+        return pass;
     }
 
     public List<Pass> findPassesByIssueDateRange(LocalDate startDate, LocalDate endDate) {

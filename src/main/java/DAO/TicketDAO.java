@@ -3,15 +3,15 @@ package DAO;
 import entities.Ticket;
 import enums.Validation;
 import exceptions.NotFoundException;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.TypedQuery;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
 
 public class TicketDAO {
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("atm");
+
     private final EntityManager em;
 
 
@@ -77,6 +77,36 @@ public class TicketDAO {
             return "The ticket has not been VALIDATED yet";
         }
     }
+
+    public void updateTicketValidation(int ticketId, int vehicleId, Validation validation) {
+
+        EntityManager em = emf.createEntityManager();
+
+        em.getTransaction().begin();
+
+        Query query = em.createQuery("UPDATE Ticket t SET t.validation = :validation, t.vehicle.id = :vehicleId WHERE t.id = :ticketId");
+        query.setParameter("validation", validation);
+        query.setParameter("vehicleId", vehicleId);
+        query.setParameter("ticketId", ticketId);
+
+        query.executeUpdate();
+
+        em.getTransaction().commit();
+        em.close();
+
+    }
+    public String TicketValidation1(int ticket_id, int vehicle_id) {
+        Ticket ticket = getTicketbyID(ticket_id);
+            if (ticket.getValidation() == Validation.VALIDATED) {
+                return "The ticket has already been validated";
+            } else {
+
+                updateTicketValidation(ticket_id, vehicle_id, Validation.VALIDATED);
+                return "Validation success";
+            }
+        }
+
+
 
     public long countValidatedTicketsByVehicleIdAndPeriod(long vehicleId, LocalDate startDate, LocalDate endDate) {
         TypedQuery<Long> query = em.createQuery(
