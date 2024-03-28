@@ -165,7 +165,7 @@ public class Application {
                                         }
 
                                     }
-                                    System.out.println("Ticket validated by this vehicle:" + vehicleID);
+                                    System.out.println("Ticket validated by this vehicle with id: " + vehicleID);
                                     System.out.println(tdao.countValidatedTicketsByVehicleIdAndPeriod(vehicleID, startDate, endDate));
 
                                     break;
@@ -255,7 +255,7 @@ public class Application {
 
                                     }
 
-                                    System.out.println("Ticket sold by this seller: " + sellerId);
+                                    System.out.println("Ticket sold by this seller with id: " + sellerId);
                                     System.out.println(pdao.countPassesSoldBySellerInPeriod(sellerId, startDate3, endDate3));
                                     break;
 
