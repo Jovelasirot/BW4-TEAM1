@@ -1,7 +1,9 @@
 package DAO;
 
 import entities.MaintenanceRecord;
+import entities.Ticket;
 import entities.Vehicle;
+import exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
@@ -42,8 +44,9 @@ public class VehicleDAO {
         return query.getResultList();
     }
 
-    private Vehicle getVehiclebyId(long vehicle_id) {
+    public Vehicle getVehiclebyId(long vehicle_id) {
         Vehicle vehicle = em.find(Vehicle.class, vehicle_id);
+        if (vehicle == null) throw new NotFoundException(vehicle_id);
         return vehicle;
 
     }

@@ -2,6 +2,7 @@ package bw4_team1;
 
 import DAO.*;
 import entities.Pass;
+import exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.NoResultException;
@@ -56,6 +57,7 @@ public class Application {
                             System.out.println("1 To check if your card is still valid");
                             System.out.println("2 To check if your ticket has been validated");
                             System.out.println("3 To check if your pass is valid");
+                            System.out.println("4 To validate your ticket");
                             System.out.println("0 - To go back");
                             int inputUser = input.nextInt();
 
@@ -66,24 +68,67 @@ public class Application {
                                     break app2;
 
                                 case 1:
-                                    System.out.println("Insert your ID:");
-                                    long id = input.nextLong();
-                                    System.out.println(cdao.ValidityByUserId(id));
+                                    boolean isValid3 = false;
+                                    while (!isValid3) {
+                                        try {
+                                            System.out.println("Insert your card ID:");
+                                            long id = input.nextLong();
+                                            System.out.println(cdao.validityCard(id));
+                                            isValid3 = true;
+                                        } catch (NotFoundException e) {
+                                            System.out.println("Card not found, please try again");
+                                            isValid3 = false;
+                                        }
+                                    }
                                     break;
 
                                 case 2:
-                                    System.out.println("Insert your ticket number");
-                                    int idTicket = input.nextInt();
-                                    System.out.println(tdao.TicketValidation(idTicket));
+                                   boolean isValid2 = false;
+                                    while (!isValid2) {
+                                        try{
+                                        System.out.println("Insert your ticket number");
+                                        int idTicket = input.nextInt();
+                                        System.out.println(tdao.TicketValidation(idTicket));
+                                        isValid2 = true;
+                                        }
+                                        catch (NotFoundException e) {
+                                            System.out.println("Invalid ticket number");
+                                            isValid2 = false;
+                                    }}
                                     break;
 
                                 case 3:
-                                    System.out.println("Insert your pass number");
-                                    long idPass = input.nextLong();
-                                    Pass passInput = pdao.findPassesByIssueId(idPass);
-                                    System.out.println(pdao.checkPassValidity(passInput));
+                                    boolean isValid1= false;
+                                    while (!isValid1) {
+                                        try{  System.out.println("Insert your pass number");
+                                            long idPass = input.nextLong();
+                                            Pass passInput = pdao.passValidation(idPass);
+                                            System.out.println(pdao.checkPassValidity(passInput));
+                                            isValid1 = true;
+                                        }
+                                        catch(NoResultException e){
+                                    System.out.println("Invalid pass number");
+                                    isValid1 = false;
+                                }}
                                     break;
-
+                                case 4:
+                                    boolean isValid = false;
+                                    while (!isValid) {
+                                        try {
+                                            System.out.println("Insert your ticket number");
+                                            int idTicket1 = input.nextInt();
+                                            tdao.TicketValidation(idTicket1);
+                                            isValid = true;
+                                            System.out.println("Insert vehicle ID");
+                                            int idVehicle = input.nextInt();
+                                            vdao.getVehiclebyId(idVehicle);
+                                            System.out.println(tdao.TicketValidation1(idTicket1, idVehicle));
+                                        } catch (NotFoundException e){
+                                            System.out.println("Ticket or vehicle not found, please try again");
+                                            isValid = false;
+                                        }
+//
+                                    } break;
                                 default:
                                     System.out.println("This option is not valid!");
 
@@ -275,8 +320,12 @@ public class Application {
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input, try again.");
                 input.nextLine();
-            } catch (NoResultException e) {
+            }
+            catch (NoResultException e) {
                 System.out.println("Invalid id, try again (ノಠ益ಠ)ノ彡┻━┻");
+            }
+            catch(NotFoundException e){
+                System.out.println(e.getMessage());
             }
         }
 
