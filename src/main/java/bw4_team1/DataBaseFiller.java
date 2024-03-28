@@ -22,21 +22,73 @@ import static entities.VerifiedSupplier.getVerifiedSupplierSupplier;
 
 public class DataBaseFiller {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("atm");
-
+    
     public static void main(String[] args) {
-        EntityManager eM = emf.createEntityManager();
 
-        UserDAO uDAO = new UserDAO(eM);
-        CardDAO cDAO = new CardDAO(eM);
-        SalesDAO sDAO = new SalesDAO(eM);
-        PassDAO pDAO = new PassDAO(eM);
-        VehicleDAO vDAO = new VehicleDAO(eM);
-        RouteDAO rDAO = new RouteDAO(eM);
-        MaintenanceRecordDAO mrDAO = new MaintenanceRecordDAO(eM);
-        TicketDAO tDAO = new TicketDAO(eM);
+        EntityManager em = emf.createEntityManager();
 
-        handleUserAction(uDAO, cDAO, sDAO, pDAO, vDAO, rDAO, mrDAO, tDAO);
+        UserDAO uDAO = new UserDAO(em);
+        CardDAO cDAO = new CardDAO(em);
+        SalesDAO sDAO = new SalesDAO(em);
+        PassDAO pDAO = new PassDAO(em);
+        VehicleDAO vDAO = new VehicleDAO(em);
+        RouteDAO rDAO = new RouteDAO(em);
+        MaintenanceRecordDAO mrDAO = new MaintenanceRecordDAO(em);
+        TicketDAO tDAO = new TicketDAO(em);
+
+        DataBaseFiller.usersCreator(uDAO);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        DataBaseFiller.cardsCreator(cDAO, uDAO);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        DataBaseFiller.salesCreator(sDAO);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        DataBaseFiller.passCreator(pDAO);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        DataBaseFiller.vehiclesCreator(vDAO);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        DataBaseFiller.routesCreator(rDAO);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        DataBaseFiller.maintenanceRecordsCreator(mrDAO);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        DataBaseFiller.ticketsCreator(tDAO);
+
     }
+
 
     public static void handleUserAction(UserDAO uDAO, CardDAO cDAO, SalesDAO sDAO, PassDAO pDAO, VehicleDAO vDAO, RouteDAO rDAO, MaintenanceRecordDAO mrDAO, TicketDAO tDAO) {
         Scanner sc = new Scanner(System.in);
@@ -140,11 +192,11 @@ public class DataBaseFiller {
 
     public static void salesCreator(SalesDAO sDAO) {
         Supplier<VendingMachine> vendingMachineSupplier = getVendingMachineSupplier();
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 20; i++) {
             sDAO.save(vendingMachineSupplier.get());
         }
         Supplier<VerifiedSupplier> verifiedSupplierSupplier = getVerifiedSupplierSupplier();
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 20; i++) {
             sDAO.save(verifiedSupplierSupplier.get());
         }
     }
@@ -180,4 +232,6 @@ public class DataBaseFiller {
         ticketList.addAll(ticketSupplier.get());
         ticketList.forEach(tDAO::save);
     }
+
+
 }

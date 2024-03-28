@@ -51,32 +51,32 @@ public class Ticket {
             List<Vehicle> vehicleList = vehicleQuery.getResultList();
 
 
-            TypedQuery<Sales> salesQuery = eM.createQuery("SELECT s from Sales s", Sales.class);
+            TypedQuery<Sales> salesQuery = eM.createQuery("SELECT s FROM Sales s WHERE s.status = 'ACTIVE' OR s.status IS NULL", Sales.class);
             List<Sales> salesList = salesQuery.getResultList();
 
             List<Ticket> ticketsList = new ArrayList<>();
 
+            int rdmTicket = rdm.nextInt(1, 20);
+
             for (Sales sales : salesList) {
                 Vehicle selectedVehicle = null;
                 selectedVehicle = vehicleList.get(rdm.nextInt(vehicleList.size()));
+
                 int rdmValidation = rdm.nextInt(validations.length);
                 Validation validationSelector = validations[rdmValidation];
                 if (Validation.VALIDATED.equals(validationSelector) && !vehicleList.isEmpty()) {
                     selectedVehicle = vehicleList.get(rdm.nextInt(vehicleList.size()));
+
                 } else if (Validation.NOT_VALIDATED.equals(validationSelector)) {
                     selectedVehicle = null;
                 }
 
-                LocalDate issueDate;
-                if (rdm.nextBoolean()) {
-                    issueDate = LocalDate.now().plusDays(rdm.nextInt(365));
-                } else {
-                    issueDate = LocalDate.now().minusDays(rdm.nextInt(365));
+
+                for (int i = 0; i < rdmTicket; i++) {
+                    LocalDate issueDate = LocalDate.now().minusDays(rdm.nextInt(365));
+                    ticketsList.add(new Ticket(issueDate, validationSelector, selectedVehicle, sales));
                 }
 
-
-                Ticket ticket = new Ticket(issueDate, validationSelector, selectedVehicle, sales);
-                ticketsList.add(ticket);
             }
 
 
