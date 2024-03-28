@@ -87,4 +87,8 @@ public class TicketDAO {
         query.setParameter("endDate", endDate);
         return query.getSingleResult();
     }
+
+
+
+
 }

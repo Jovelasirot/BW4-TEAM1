@@ -55,7 +55,7 @@ public class VehicleDAO {
                 LocalDate today = LocalDate.now();
                 if (!today.isBefore(vehicle.getMaintenanceStartDate()) && !today.isAfter(vehicle.getMaintenanceEndDate())) {
                     System.out.println("The vehicle is under maintenance.");
-                } else {
+                } else{
                     System.out.println("The vehicle is on duty.");
                 }
             } else {
