@@ -56,7 +56,13 @@ public class Pass {
             int rdmPassDuration = rdm.nextInt(passDurations.length);
             PassDuration passDuration = passDurations[rdmPassDuration];
 
-            LocalDate dateOfIssue = LocalDate.now().minusDays(rdm.nextInt(730));
+            LocalDate dateOfIssue;
+            if (rdm.nextBoolean()) {
+                dateOfIssue = LocalDate.now().minusDays(rdm.nextInt(365));
+            } else {
+                dateOfIssue = LocalDate.now().minusDays(rdm.nextInt(10));
+            }
+
 
             return new Pass(passDuration, dateOfIssue, randomCard, randomSale);
         };

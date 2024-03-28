@@ -1,6 +1,7 @@
 package bw4_team1;
 
 import DAO.*;
+import entities.Pass;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.NoResultException;
@@ -79,7 +80,8 @@ public class Application {
                                 case 3:
                                     System.out.println("Insert your pass number");
                                     long idPass = input.nextLong();
-                                    pdao.findPassesByIssueId(idPass).forEach(System.out::println);
+                                    Pass passInput = pdao.findPassesByIssueId(idPass);
+                                    System.out.println(pdao.checkPassValidity(passInput));
                                     break;
 
                                 default:
@@ -126,7 +128,7 @@ public class Application {
 
                                 case 4:
                                     System.out.println("Insert the vehicle id");
-                                    long vScanner = input.nextLong();
+                                    long vehicleID = input.nextLong();
                                     input.nextLine();
 
                                     LocalDate startDate = null;
@@ -153,13 +155,18 @@ public class Application {
                                         try {
                                             endDate = LocalDate.parse(endDateString);
                                             validEndDate = true;
+
+                                            if (endDate.isAfter(LocalDate.now())) {
+                                                System.out.println("Tickets are issued maximum until: " + LocalDate.now());
+                                                validEndDate = false;
+                                            }
                                         } catch (DateTimeParseException e) {
                                             System.out.println("Invalid date format, try again.");
                                         }
 
                                     }
-
-                                    System.out.println(tdao.countValidatedTicketsByVehicleIdAndPeriod(vScanner, startDate, endDate));
+                                    System.out.println("Ticket validated by this vehicle:" + vehicleID);
+                                    System.out.println(tdao.countValidatedTicketsByVehicleIdAndPeriod(vehicleID, startDate, endDate));
 
                                     break;
 
@@ -193,14 +200,19 @@ public class Application {
                                         try {
                                             endDate2 = LocalDate.parse(endDateString);
                                             validEndDate2 = true;
+
+                                            if (endDate2.isAfter(LocalDate.now())) {
+                                                System.out.println("Tickets are issued maximum until: " + LocalDate.now());
+                                                validEndDate2 = false;
+                                            }
                                         } catch (DateTimeParseException e) {
                                             System.out.println("Invalid date format, try again.");
                                         }
 
                                     }
 
-
-                                    System.out.println(tdao.findTicketsComplete(salesInput, startDate2, endDate2));
+                                    System.out.println("Ticket sold:");
+                                    System.out.println(tdao.findTicketsComplete(salesInput, startDate2, endDate2).size());
                                     break;
 
                                 case 6:
@@ -232,11 +244,18 @@ public class Application {
                                         try {
                                             endDate3 = LocalDate.parse(endDateString);
                                             validEndDate3 = true;
+
+                                            if (endDate3.isAfter(LocalDate.now())) {
+                                                System.out.println("Tickets are issued maximum until: " + LocalDate.now());
+                                                validEndDate3 = false;
+                                            }
                                         } catch (DateTimeParseException e) {
                                             System.out.println("Invalid date format, try again.");
                                         }
 
                                     }
+
+                                    System.out.println("Ticket sold by this seller: " + sellerId);
                                     System.out.println(pdao.countPassesSoldBySellerInPeriod(sellerId, startDate3, endDate3));
                                     break;
 
@@ -254,7 +273,7 @@ public class Application {
 
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input, type a number.");
+                System.out.println("Invalid input, try again.");
                 input.nextLine();
             } catch (NoResultException e) {
                 System.out.println("Invalid id, try again (ノಠ益ಠ)ノ彡┻━┻");

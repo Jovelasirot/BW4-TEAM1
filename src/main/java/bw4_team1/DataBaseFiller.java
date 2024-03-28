@@ -140,11 +140,11 @@ public class DataBaseFiller {
 
     public static void salesCreator(SalesDAO sDAO) {
         Supplier<VendingMachine> vendingMachineSupplier = getVendingMachineSupplier();
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 20; i++) {
             sDAO.save(vendingMachineSupplier.get());
         }
         Supplier<VerifiedSupplier> verifiedSupplierSupplier = getVerifiedSupplierSupplier();
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 20; i++) {
             sDAO.save(verifiedSupplierSupplier.get());
         }
     }
