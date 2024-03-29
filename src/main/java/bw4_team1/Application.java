@@ -83,33 +83,34 @@ public class Application {
                                     break;
 
                                 case 2:
-                                   boolean isValid2 = false;
+                                    boolean isValid2 = false;
                                     while (!isValid2) {
-                                        try{
-                                        System.out.println("Insert your ticket number");
-                                        int idTicket = input.nextInt();
-                                        System.out.println(tdao.TicketValidation(idTicket));
-                                        isValid2 = true;
-                                        }
-                                        catch (NotFoundException e) {
+                                        try {
+                                            System.out.println("Insert your ticket number");
+                                            int idTicket = input.nextInt();
+                                            System.out.println(tdao.TicketValidation(idTicket));
+                                            isValid2 = true;
+                                        } catch (NotFoundException e) {
                                             System.out.println("Invalid ticket number");
                                             isValid2 = false;
-                                    }}
+                                        }
+                                    }
                                     break;
 
                                 case 3:
-                                    boolean isValid1= false;
+                                    boolean isValid1 = false;
                                     while (!isValid1) {
-                                        try{  System.out.println("Insert your pass number");
+                                        try {
+                                            System.out.println("Insert your pass number");
                                             long idPass = input.nextLong();
                                             Pass passInput = pdao.passValidation(idPass);
                                             System.out.println(pdao.checkPassValidity(passInput));
                                             isValid1 = true;
+                                        } catch (NoResultException e) {
+                                            System.out.println("Invalid pass number");
+                                            isValid1 = false;
                                         }
-                                        catch(NoResultException e){
-                                    System.out.println("Invalid pass number");
-                                    isValid1 = false;
-                                }}
+                                    }
                                     break;
                                 case 4:
                                     boolean isValid = false;
@@ -123,12 +124,13 @@ public class Application {
                                             int idVehicle = input.nextInt();
                                             vdao.getVehiclebyId(idVehicle);
                                             System.out.println(tdao.TicketValidation1(idTicket1, idVehicle));
-                                        } catch (NotFoundException e){
+                                        } catch (NotFoundException e) {
                                             System.out.println("Ticket or vehicle not found, please try again");
                                             isValid = false;
                                         }
-//
-                                    } break;
+
+                                    }
+                                    break;
                                 default:
                                     System.out.println("This option is not valid!");
 
@@ -320,11 +322,9 @@ public class Application {
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input, try again.");
                 input.nextLine();
-            }
-            catch (NoResultException e) {
+            } catch (NoResultException e) {
                 System.out.println("Invalid id, try again (ノಠ益ಠ)ノ彡┻━┻");
-            }
-            catch(NotFoundException e){
+            } catch (NotFoundException e) {
                 System.out.println(e.getMessage());
             }
         }

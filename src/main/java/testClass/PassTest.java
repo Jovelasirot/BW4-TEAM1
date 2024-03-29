@@ -1,48 +1,45 @@
-package bw4_team1;
+package testClass;
 
 import DAO.CardDAO;
+import DAO.PassDAO;
+import DAO.SalesDAO;
 import DAO.UserDAO;
 import com.github.javafaker.Faker;
-import entities.Card;
-import entities.User;
+import entities.Pass;
+import enums.PassDuration;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 import java.time.LocalDate;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
-import java.util.Set;
-import java.util.function.Supplier;
 
-public class UserTest {
+public class PassTest {
 
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("atm");
 
     public static void main(String[] args) {
-
+        List<PassDuration> passDurations = List.of(PassDuration.values());
         EntityManager em = emf.createEntityManager();
 
         UserDAO udao = new UserDAO(em);
+        SalesDAO sdao = new SalesDAO(em);
+        PassDAO pdao = new PassDAO(em);
         CardDAO cdao = new CardDAO(em);
-
         Faker faker = new Faker();
         Random random = new Random();
 
-        Supplier<User> userSupplier = () -> (new User(faker.harryPotter().character(), faker.lordOfTheRings().character()));
+//        Supplier<Pass> passSupplier = () -> (new Pass(PassDuration.WEEKLY,2020));
         for (int i = 0; i < 30; i++) {
-            udao.save(userSupplier.get());
-            System.out.println(userSupplier.get());
-
+            pdao.save(new Pass(passDurations.get(random.nextInt(0, passDurations.size())), LocalDate.now().plusDays(random.nextInt(365)), cdao.findById(random.nextInt(2, 29)), sdao.findById(random.nextInt(1, 19))));
 
         }
 
-        Set<Card> cardSet = new HashSet<>();
-        for (int i = 1; i < 30; i++) {
-            cdao.save(new Card(LocalDate.now().plusDays(random.nextInt(365)), udao.findById(i)));
 
-        }
+        em.close();
+        emf.close();
+
 
     }
-
 }
