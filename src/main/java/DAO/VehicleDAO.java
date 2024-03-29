@@ -56,16 +56,16 @@ public class VehicleDAO {
         try {
             if (vehicle != null) {
                 LocalDate today = LocalDate.now();
-                if (!today.isBefore(vehicle.getMaintenanceStartDate()) && !today.isAfter(vehicle.getMaintenanceEndDate())) {
-                    System.out.println("The vehicle is under maintenance.");
+                if (today.isBefore(vehicle.getMaintenanceStartDate()) && today.isAfter(vehicle.getMaintenanceEndDate())) {
+                    System.out.println("The vehicle is ON DUTY.");
                 } else{
-                    System.out.println("The vehicle is on duty.");
+                    System.out.println("The vehicle is ON MAINTENANCE.");
                 }
             } else {
                 System.out.println("Vehicle by id: " + vehicle_id + " not found");
             }
         } catch (NullPointerException e) {
-            System.out.println("The vehicle is on duty.");
+            System.out.println("The vehicle is ON DUTY.");
         }
     }
 

@@ -143,10 +143,10 @@ public class MaintenanceRecord {
 
     @Override
     public String toString() {
-        return "MaintenanceRecord{" +
+        return '\n'+ "MaintenanceRecord{" +
                 "idRecord=" + idRecord +
                 ", maintenancePeriod='" + maintenancePeriod + '\'' +
                 ", reason='" + reason + '\'' +
-                '}';
+                '}' +'\n';
     }
 }

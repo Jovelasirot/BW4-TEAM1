@@ -39,7 +39,7 @@ public class CardDAO {
         Card card = query.getSingleResult();
 
         if (card.getExpiryDate().isAfter(today)) {
-            return "Your card is valid! .";
+            return "Your card is valid! ";
         } else {
             return "Your card IS NOT VALID!.";
         }
@@ -49,7 +49,7 @@ public class CardDAO {
         LocalDate today = LocalDate.now();
         if (card == null) {throw new NotFoundException(userId);
         }else{ if (card.getExpiryDate().isAfter(today)) {
-            return "Your card is valid! .";
+            return "Your card is valid! ENJOY YOUR TRIP  .";
         } else {
             return "Your card IS NOT VALID!.";
         }}
