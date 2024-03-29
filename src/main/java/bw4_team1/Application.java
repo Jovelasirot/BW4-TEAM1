@@ -146,7 +146,7 @@ public class Application {
                             System.out.println();
                             System.out.println("1 - To check how many times the route has been travelled by a vehicle and the actual time");
                             System.out.println("2 - To check if a vehicle is on maintenance");
-                            System.out.println("3 - To check the records of maintenances af a single vehicle");
+                            System.out.println("3 - To check the records of maintenances of a single vehicle");
                             System.out.println("4 - To check the number of tickets validated on a single vehicle in a period of time");
                             System.out.println("5 - To check the number of TICKETS sold by a specific seller in a period of time");
                             System.out.println("6 - To check the number of PASSES sold by a specific seller in a period of time");
@@ -219,10 +219,9 @@ public class Application {
 
 
                                 case 5:
-                                    System.out.println("Insert the sales id");
+                                    System.out.println("Insert the seller id");
                                     int salesInput = input.nextInt();
                                     input.nextLine();
-
                                     LocalDate startDate2 = null;
                                     boolean validStartDate2 = false;
                                     while (!validStartDate2) {
