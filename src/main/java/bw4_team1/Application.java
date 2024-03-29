@@ -54,10 +54,10 @@ public class Application {
                         app2:
                         while (true) {
                             System.out.println("Now, select the options below:");
-                            System.out.println("1 To check if your card is still valid");
-                            System.out.println("2 To check if your ticket has been validated");
-                            System.out.println("3 To check if your pass is valid");
-                            System.out.println("4 To validate your ticket");
+                            System.out.println("1 - To check if your card is still valid");
+                            System.out.println("2 - To check if your ticket has been validated");
+                            System.out.println("3 - To check if your pass is valid");
+                            System.out.println("4 - To validate your ticket");
                             System.out.println("0 - To go back");
                             int inputUser = input.nextInt();
 
