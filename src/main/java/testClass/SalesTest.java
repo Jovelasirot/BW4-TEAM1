@@ -1,4 +1,4 @@
-package bw4_team1;
+package testClass;
 
 import DAO.SalesDAO;
 import com.github.javafaker.Faker;
